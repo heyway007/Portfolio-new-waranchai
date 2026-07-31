@@ -74,14 +74,14 @@ function portfolioDbWithDraft(hiddenProjectId) {
   return new FakeD1(defaultPortfolio.settings, entries);
 }
 
-async function render(path = "/", bindings = {}) {
+async function render(path = "/", bindings = {}, requestHeaders = {}) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
     new Request(new URL(path, "http://localhost"), {
-      headers: { accept: "text/html" },
+      headers: { accept: "text/html", ...requestHeaders },
     }),
     {
       ASSETS: {
@@ -104,9 +104,6 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   const html = await response.text();
   assert.match(html, /Waranchai Pungwattananukul/i);
   assert.match(html, /Full-Stack Web Developer/i);
-  assert.match(html, /property="og:image"/i);
-  assert.match(html, /\/og\.png/i);
-  assert.match(html, /name="twitter:card" content="summary_large_image"/i);
   assert.match(html, /class="portfolio-site"/i);
   assert.match(html, /class="hero-technical-frame"/i);
   assert.match(html, /class="about-metrics"/i);
@@ -117,6 +114,42 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   assert.match(html, /id="experience"/i);
   assert.match(html, /id="skills"/i);
   assert.match(html, /id="contact"/i);
+});
+
+test("renders host-aware social metadata from the root layout", async () => {
+  const response = await render(
+    "/admin/login",
+    {},
+    {
+      "x-forwarded-host": "portfolio.example",
+      "x-forwarded-proto": "https",
+    },
+  );
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(
+    html,
+    /property="og:image" content="https:\/\/portfolio\.example\/og\.png"/i,
+  );
+  assert.match(
+    html,
+    /name="twitter:image" content="https:\/\/portfolio\.example\/og\.png"/i,
+  );
+  assert.match(
+    html,
+    /name="twitter:card" content="summary_large_image"/i,
+  );
+});
+
+test("ships a 1200 by 630 social preview PNG", async () => {
+  const png = await readFile(new URL("../public/og.png", import.meta.url));
+  assert.deepEqual([...png.subarray(0, 8)], [
+    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+  ]);
+  assert.equal(png.toString("ascii", 12, 16), "IHDR");
+  assert.equal(png.readUInt32BE(16), 1200);
+  assert.equal(png.readUInt32BE(20), 630);
 });
 
 test("renders the dark technical section structure without fake controls", async () => {
