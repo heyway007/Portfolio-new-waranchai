@@ -117,6 +117,68 @@ test("keeps public prose at least 15px", () => {
   );
 });
 
+test("covers every bare admin brand mark and eyebrow context", () => {
+  const adminContexts = [
+    {
+      selector: ".admin-login .brand-mark",
+      declarations: [
+        ["display", "grid"],
+        ["width", "2.1rem"],
+        ["height", "2.1rem"],
+        ["border-radius", "50%"],
+        ["background", "var(--ink)"],
+        ["color", "white"],
+      ],
+    },
+    {
+      selector: ".admin-loading .brand-mark",
+      declarations: [
+        ["display", "grid"],
+        ["width", "2.1rem"],
+        ["height", "2.1rem"],
+        ["border-radius", "50%"],
+        ["background", "var(--ink)"],
+        ["color", "white"],
+      ],
+    },
+    {
+      selector: ".admin-shell .brand-mark",
+      declarations: [
+        ["display", "grid"],
+        ["width", "2.1rem"],
+        ["height", "2.1rem"],
+        ["border-radius", "50%"],
+        ["background", "var(--ink)"],
+        ["color", "white"],
+      ],
+    },
+    {
+      selector: ".admin-login .eyebrow",
+      declarations: [
+        ["margin", "0 0 1.25rem"],
+        ["color", "var(--blue)"],
+        ["letter-spacing", "0.12em"],
+        ["text-transform", "uppercase"],
+      ],
+    },
+    {
+      selector: ".admin-shell .eyebrow",
+      declarations: [
+        ["margin", "0 0 1.25rem"],
+        ["color", "var(--blue)"],
+        ["letter-spacing", "0.12em"],
+        ["text-transform", "uppercase"],
+      ],
+    },
+  ];
+
+  for (const { selector, declarations } of adminContexts) {
+    for (const [property, value] of declarations) {
+      assertCssRule(styles, selector, property, value);
+    }
+  }
+});
+
 test("staggers all ten current dynamic project cards", () => {
   assertCssRule(
     styles,
