@@ -53,8 +53,22 @@ const schemaStatements = [
   `CREATE INDEX IF NOT EXISTS assets_storage_key_idx ON assets (storage_key)`,
 ];
 
+const databaseBootstrap = new WeakMap<object, Promise<void>>();
+
 export async function ensureDatabase(db: D1Database): Promise<void> {
-  await db.batch(schemaStatements.map((statement) => db.prepare(statement)));
+  const key = db as unknown as object;
+  let pending = databaseBootstrap.get(key);
+  if (!pending) {
+    pending = db
+      .batch(schemaStatements.map((statement) => db.prepare(statement)))
+      .then(() => undefined)
+      .catch((error) => {
+        databaseBootstrap.delete(key);
+        throw error;
+      });
+    databaseBootstrap.set(key, pending);
+  }
+  await pending;
 }
 
 export async function ensureSeedData(db: D1Database): Promise<void> {
