@@ -134,6 +134,30 @@ img {
   transition-delay: calc(3 * 65ms);
 }
 
+.reveal-ready .portfolio-site [data-reveal]:nth-child(5) {
+  transition-delay: calc(4 * 65ms);
+}
+
+.reveal-ready .portfolio-site [data-reveal]:nth-child(6) {
+  transition-delay: calc(5 * 65ms);
+}
+
+.reveal-ready .portfolio-site [data-reveal]:nth-child(7) {
+  transition-delay: calc(6 * 65ms);
+}
+
+.reveal-ready .portfolio-site [data-reveal]:nth-child(8) {
+  transition-delay: calc(7 * 65ms);
+}
+
+.reveal-ready .portfolio-site [data-reveal]:nth-child(9) {
+  transition-delay: calc(8 * 65ms);
+}
+
+.reveal-ready .portfolio-site [data-reveal]:nth-child(10) {
+  transition-delay: calc(9 * 65ms);
+}
+
 .portfolio-site .skip-link {
   position: fixed;
   z-index: 100;
@@ -258,8 +282,8 @@ img {
 }
 
 .portfolio-site .language-switch button {
-  min-width: 2.5rem;
-  min-height: 2.1rem;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0 0.6rem;
   border: 0;
   border-radius: 999px;
@@ -934,7 +958,7 @@ img {
   max-width: 42rem;
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   line-height: 1.7;
 }
 
@@ -1109,7 +1133,7 @@ img {
 .portfolio-site .contact-details p {
   margin: 0 0 0.8rem;
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-size: 0.9375rem;
 }
 
 .portfolio-site .contact-details a,
@@ -1433,8 +1457,34 @@ img {
 
   .reveal-ready .portfolio-site [data-reveal],
   .portfolio-site .project-card:hover,
-  .portfolio-site .project-card:hover .project-media img {
+  .portfolio-site .project-card:focus-within,
+  .portfolio-site .project-card:hover .project-media img,
+  .portfolio-site .project-card:focus-within .project-media img {
     opacity: 1;
+    transform: none;
+  }
+
+  .portfolio-site .skip-link:focus,
+  .portfolio-site .site-nav a:hover::after,
+  .portfolio-site .site-nav a:focus-visible::after,
+  .portfolio-site .button-primary:hover,
+  .portfolio-site .button-primary:focus-visible,
+  .portfolio-site .button-primary:hover::before,
+  .portfolio-site .button-primary:focus-visible::before,
+  .portfolio-site .button:hover span,
+  .portfolio-site .button:focus-visible span,
+  .portfolio-site .project-link:hover span,
+  .portfolio-site .project-link:focus-visible span,
+  .portfolio-site .button-quiet:hover,
+  .portfolio-site .button-quiet:focus-visible,
+  .portfolio-site .project-link:hover::after,
+  .portfolio-site .project-link:focus-visible::after,
+  .portfolio-site .skill-card:hover .skill-index,
+  .portfolio-site .skill-card:focus-within .skill-index,
+  .portfolio-site .contact-details a:hover::after,
+  .portfolio-site .contact-details a:focus-visible::after,
+  .portfolio-site .footer-bottom a:hover::after,
+  .portfolio-site .footer-bottom a:focus-visible::after {
     transform: none;
   }
 }
