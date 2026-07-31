@@ -1,6 +1,6 @@
 export interface PortfolioRuntimeEnv {
-  DB: D1Database;
-  PORTFOLIO_ASSETS: R2Bucket;
+  DB?: D1Database;
+  PORTFOLIO_ASSETS?: R2Bucket;
   ADMIN_EMAIL?: string;
   ADMIN_PASSWORD_HASH?: string;
 }
@@ -17,4 +17,3 @@ export function getRuntimeEnv(): PortfolioRuntimeEnv {
   }
   return runtimeEnv;
 }
-

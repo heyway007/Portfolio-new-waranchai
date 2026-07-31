@@ -961,6 +961,53 @@ img {
   }
 }
 
+.project-case-study {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.project-case-study summary {
+  cursor: pointer;
+  color: var(--blue);
+  font-weight: 650;
+}
+
+.project-case-study > p {
+  margin-top: 1rem;
+  white-space: pre-line;
+}
+
+.project-supporting-images {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-supporting-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+.project-image-placeholder {
+  min-height: 18rem;
+  background: linear-gradient(135deg, var(--paper-strong), var(--line));
+}
+
+.admin-copy-fields {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 1rem;
+}
+
+.admin-supporting-image {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

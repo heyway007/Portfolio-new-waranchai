@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   const runtime = getRuntimeEnv();
-  if (!runtime.ADMIN_EMAIL || !runtime.ADMIN_PASSWORD_HASH) {
+  if (!runtime.DB || !runtime.ADMIN_EMAIL || !runtime.ADMIN_PASSWORD_HASH) {
     return NextResponse.json(
       { ok: false, message: "Administrator access is not configured." },
       { status: 503 },
@@ -56,4 +56,3 @@ export async function POST(request: Request) {
     { headers: { "Set-Cookie": session.cookie } },
   );
 }
-

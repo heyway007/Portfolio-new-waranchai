@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import type { LocalizedText } from "../../../lib/content/types";
 
 export function ImageUploader({
   value,
+  alt,
   onChange,
 }: {
   value: string;
+  alt?: LocalizedText;
   onChange(value: string): void;
 }) {
   const [loading, setLoading] = useState(false);
@@ -18,6 +21,8 @@ export function ImageUploader({
     setError("");
     const data = new FormData();
     data.set("file", file);
+    data.set("altEn", alt?.en ?? "");
+    data.set("altTh", alt?.th ?? "");
     try {
       const response = await fetch("/api/admin/assets", {
         method: "POST",

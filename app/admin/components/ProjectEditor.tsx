@@ -100,7 +100,55 @@ export function ProjectEditor({
                 <p className="admin-field-title">Cover image</p>
                 <ImageUploader
                   value={project.coverImage}
+                  alt={project.imageAlt}
                   onChange={(coverImage) => onChange({ ...project, coverImage })}
+                />
+              </div>
+              <div>
+                <p className="admin-field-title">Supporting images</p>
+                {(project.supportingImages ?? []).map((image, imageIndex) => (
+                  <div className="admin-supporting-image" key={`${image}-${imageIndex}`}>
+                    <ImageUploader
+                      value={image}
+                      alt={project.imageAlt}
+                      onChange={(nextImage) =>
+                        onChange({
+                          ...project,
+                          supportingImages: (project.supportingImages ?? []).map(
+                            (item, index) =>
+                              index === imageIndex ? nextImage : item,
+                          ),
+                        })
+                      }
+                    />
+                    <button
+                      className="admin-danger-button"
+                      type="button"
+                      onClick={() =>
+                        onChange({
+                          ...project,
+                          supportingImages: (
+                            project.supportingImages ?? []
+                          ).filter((_, index) => index !== imageIndex),
+                        })
+                      }
+                    >
+                      Remove supporting image
+                    </button>
+                  </div>
+                ))}
+                <ImageUploader
+                  value=""
+                  alt={project.imageAlt}
+                  onChange={(image) =>
+                    onChange({
+                      ...project,
+                      supportingImages: [
+                        ...(project.supportingImages ?? []),
+                        image,
+                      ],
+                    })
+                  }
                 />
               </div>
               <BilingualField
@@ -171,4 +219,3 @@ export function ProjectEditor({
     </section>
   );
 }
-

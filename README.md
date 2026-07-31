@@ -1,6 +1,6 @@
 # Waranchai Portfolio CMS
 
-A bilingual Modern Editorial portfolio for Waranchai Pungwattananukul. The public site renders an English fallback immediately, remembers the visitor's TH/EN preference, and refreshes published content from D1. A single administrator can edit every section, upload imagery to R2, preview drafts, reorder entries, and publish content.
+A bilingual Modern Editorial portfolio for Waranchai Pungwattananukul. The public site server-renders published D1 content, remembers the visitor's TH/EN preference, and refreshes that same published snapshot in the browser. A single administrator can edit every section, upload imagery to R2, preview drafts, reorder entries, and publish content.
 
 ## Local development
 
@@ -26,6 +26,8 @@ The public site is at `/`, the CMS is at `/admin`, and draft preview is at `/pre
 - Public requests return only `published` entries.
 - The admin snapshot includes both `draft` and `published` entries.
 - Project website URLs are optional. An empty URL hides the public visit button and presents the project as a case study.
+- Project case-study copy, cover imagery, and supporting images are editable.
+- SEO title, description, navigation, section headings, labels, and calls to action are editable in Thai and English.
 - Thai and English fields are edited together. If one translation is empty, the public site displays the available translation.
 - D1 stores settings, entries, sessions, login throttling, and asset metadata.
 - R2 stores administrator-uploaded images.

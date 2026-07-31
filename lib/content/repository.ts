@@ -18,9 +18,17 @@ export function portfolioFromRows(
   rows: ContentRow[],
   includeDrafts: boolean,
 ): PortfolioData {
-  const settings: SiteSettings = settingsPayload
-    ? JSON.parse(settingsPayload)
-    : defaultPortfolio.settings;
+  const storedSettings = settingsPayload
+    ? (JSON.parse(settingsPayload) as Partial<SiteSettings>)
+    : {};
+  const settings: SiteSettings = {
+    ...defaultPortfolio.settings,
+    ...storedSettings,
+    copy: {
+      ...defaultPortfolio.settings.copy,
+      ...(storedSettings.copy ?? {}),
+    },
+  };
   const entries = rows
     .filter((row) => includeDrafts || row.status === "published")
     .sort((a, b) => a.sort_order - b.sort_order)
@@ -31,6 +39,9 @@ export function portfolioFromRows(
         id: row.id,
         status: row.status,
         sortOrder: row.sort_order,
+        ...(entry.type === "project"
+          ? { supportingImages: entry.supportingImages ?? [] }
+          : {}),
       } as ContentEntry;
     });
 
@@ -42,4 +53,3 @@ export function portfolioFromRows(
     projects: entries.filter((entry) => entry.type === "project"),
   };
 }
-

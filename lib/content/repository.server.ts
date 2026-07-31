@@ -4,14 +4,13 @@ import { loadPortfolio } from "./database.server";
 import type { PortfolioData } from "./types";
 
 export async function getPublishedPortfolio(): Promise<PortfolioData> {
-  try {
-    return await loadPortfolio(getRuntimeEnv().DB, false);
-  } catch {
-    return defaultPortfolio;
-  }
+  const db = getRuntimeEnv().DB;
+  if (!db) return defaultPortfolio;
+  return loadPortfolio(db, false);
 }
 
 export function getAdminPortfolio(): Promise<PortfolioData> {
-  return loadPortfolio(getRuntimeEnv().DB, true);
+  const db = getRuntimeEnv().DB;
+  if (!db) throw new Error("Portfolio database binding is unavailable.");
+  return loadPortfolio(db, true);
 }
-

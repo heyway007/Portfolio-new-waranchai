@@ -7,8 +7,44 @@ export interface LocalizedText {
   th: string;
 }
 
+export interface SiteCopy {
+  navAbout: LocalizedText;
+  navWork: LocalizedText;
+  navExperience: LocalizedText;
+  navSkills: LocalizedText;
+  navContact: LocalizedText;
+  menu: LocalizedText;
+  close: LocalizedText;
+  skip: LocalizedText;
+  heroWorkAction: LocalizedText;
+  heroContactAction: LocalizedText;
+  aboutEyebrow: LocalizedText;
+  aboutTitle: LocalizedText;
+  yearsLabel: LocalizedText;
+  projectsLabel: LocalizedText;
+  bilingualLabel: LocalizedText;
+  workEyebrow: LocalizedText;
+  workTitle: LocalizedText;
+  visitWebsite: LocalizedText;
+  caseStudy: LocalizedText;
+  caseStudyDetails: LocalizedText;
+  featured: LocalizedText;
+  archive: LocalizedText;
+  experienceEyebrow: LocalizedText;
+  experienceTitle: LocalizedText;
+  education: LocalizedText;
+  present: LocalizedText;
+  skillsEyebrow: LocalizedText;
+  skillsTitle: LocalizedText;
+  contactEyebrow: LocalizedText;
+  backToTop: LocalizedText;
+}
+
 export interface SiteSettings {
   fullName: string;
+  seoTitle: LocalizedText;
+  seoDescription: LocalizedText;
+  copy: SiteCopy;
   eyebrow: LocalizedText;
   role: LocalizedText;
   introduction: LocalizedText;
@@ -64,6 +100,7 @@ export interface ProjectEntry extends BaseEntry {
   liveUrl: string;
   coverImage: string;
   imageAlt: LocalizedText;
+  supportingImages?: string[];
   featured: boolean;
 }
 
@@ -80,4 +117,3 @@ export interface PortfolioData {
   skillGroups: SkillGroupEntry[];
   projects: ProjectEntry[];
 }
-

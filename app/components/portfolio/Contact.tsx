@@ -11,7 +11,9 @@ export function Contact({
   return (
     <footer className="contact-section" id="contact">
       <div className="contact-topline">
-        <p className="eyebrow">{language === "th" ? "ติดต่อ / 05" : "Contact / 05"}</p>
+        <p className="eyebrow">
+          {localize(settings.copy.contactEyebrow, language)}
+        </p>
         <p>{localize(settings.location, language)}</p>
       </div>
       <h2>{localize(settings.contactClosing, language)}</h2>
@@ -20,10 +22,9 @@ export function Contact({
         <a href={`tel:${settings.phone.replaceAll("-", "")}`}>{settings.phone}</a>
       </div>
       <div className="footer-bottom">
-        <p>© 2026 {settings.fullName}</p>
-        <a href="#top">{language === "th" ? "กลับด้านบน ↑" : "Back to top ↑"}</a>
+        <p>© {new Date().getFullYear()} {settings.fullName}</p>
+        <a href="#top">{localize(settings.copy.backToTop, language)}</a>
       </div>
     </footer>
   );
 }
-

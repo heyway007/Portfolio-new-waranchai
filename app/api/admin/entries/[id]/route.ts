@@ -29,6 +29,12 @@ export async function PUT(request: Request, context: RouteContext) {
         );
   } catch (error) {
     if (error instanceof Response) return error;
+    if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { ok: false, message: "Request body must be valid JSON." },
+        { status: 400 },
+      );
+    }
     return NextResponse.json(
       { ok: false, message: "Unable to update entry." },
       { status: 503 },
@@ -64,4 +70,3 @@ export async function DELETE(request: Request, context: RouteContext) {
     );
   }
 }
-

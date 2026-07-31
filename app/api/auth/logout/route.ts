@@ -6,10 +6,10 @@ import { getRuntimeEnv } from "../../../../lib/platform/env.server";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  await deleteAdminSession(getRuntimeEnv().DB, request);
+  const db = getRuntimeEnv().DB;
+  if (db) await deleteAdminSession(db, request);
   return NextResponse.json(
     { ok: true },
     { headers: { "Set-Cookie": clearSessionCookie() } },
   );
 }
-

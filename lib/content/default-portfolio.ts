@@ -360,6 +360,58 @@ const projects: ProjectEntry[] = [
 export const defaultPortfolio: PortfolioData = {
   settings: {
     fullName: "Waranchai Pungwattananukul",
+    seoTitle: {
+      en: "Waranchai Pungwattananukul — Full-Stack Web Developer",
+      th: "วรัญชัย พึ่งวัฒนานุกูล — นักพัฒนาเว็บไซต์ Full-Stack",
+    },
+    seoDescription: {
+      en: "Full-Stack Web Developer in Bangkok building reliable digital products, platforms, and business systems.",
+      th: "นักพัฒนาเว็บไซต์ Full-Stack ในกรุงเทพฯ ผู้สร้างผลิตภัณฑ์ดิจิทัล แพลตฟอร์ม และระบบธุรกิจที่เชื่อถือได้",
+    },
+    copy: {
+      navAbout: { en: "About", th: "เกี่ยวกับ" },
+      navWork: { en: "Work", th: "ผลงาน" },
+      navExperience: { en: "Experience", th: "ประสบการณ์" },
+      navSkills: { en: "Skills", th: "ทักษะ" },
+      navContact: { en: "Contact", th: "ติดต่อ" },
+      menu: { en: "Menu", th: "เมนู" },
+      close: { en: "Close", th: "ปิด" },
+      skip: { en: "Skip to content", th: "ข้ามไปยังเนื้อหา" },
+      heroWorkAction: { en: "View selected work", th: "ดูผลงาน" },
+      heroContactAction: { en: "Start a conversation", th: "คุยเรื่องโปรเจกต์" },
+      aboutEyebrow: { en: "Profile / 01", th: "โปรไฟล์ / 01" },
+      aboutTitle: {
+        en: "Building useful things, thoughtfully.",
+        th: "สร้างสิ่งที่มีประโยชน์อย่างตั้งใจ",
+      },
+      yearsLabel: { en: "Years of experience", th: "ปีของประสบการณ์" },
+      projectsLabel: { en: "Selected projects", th: "ผลงานที่คัดสรร" },
+      bilingualLabel: { en: "Bilingual communication", th: "สื่อสารสองภาษา" },
+      workEyebrow: { en: "Selected work / 02", th: "ผลงานเด่น / 02" },
+      workTitle: {
+        en: "Systems, platforms, and websites made to work.",
+        th: "ระบบ แพลตฟอร์ม และเว็บไซต์ที่สร้างมาเพื่อใช้งานจริง",
+      },
+      visitWebsite: { en: "Visit website", th: "เยี่ยมชมเว็บไซต์" },
+      caseStudy: { en: "Case study", th: "กรณีศึกษา" },
+      caseStudyDetails: { en: "Read case study", th: "อ่านกรณีศึกษา" },
+      featured: { en: "Featured", th: "ผลงานเด่น" },
+      archive: { en: "Archive", th: "ผลงานอื่น" },
+      experienceEyebrow: { en: "Journey / 03", th: "เส้นทาง / 03" },
+      experienceTitle: {
+        en: "Experience that spans products and industries.",
+        th: "ประสบการณ์จากหลากหลายผลิตภัณฑ์และอุตสาหกรรม",
+      },
+      education: { en: "Education", th: "การศึกษา" },
+      present: { en: "Present", th: "ปัจจุบัน" },
+      skillsEyebrow: { en: "Capabilities / 04", th: "ความสามารถ / 04" },
+      skillsTitle: {
+        en: "A practical, full-stack toolkit.",
+        th: "เครื่องมือ Full-Stack สำหรับโจทย์ในโลกจริง",
+      },
+      contactEyebrow: { en: "Contact / 05", th: "ติดต่อ / 05" },
+      backToTop: { en: "Back to top ↑", th: "กลับด้านบน ↑" },
+    },
     eyebrow: { en: "Full-stack developer in Bangkok", th: "นักพัฒนา Full-Stack ในกรุงเทพฯ" },
     role: { en: "Full-Stack Web Developer", th: "นักพัฒนาเว็บไซต์ Full-Stack" },
     introduction: {
@@ -386,4 +438,3 @@ export const defaultPortfolio: PortfolioData = {
   skillGroups,
   projects,
 };
-

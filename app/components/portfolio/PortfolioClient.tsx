@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Language, PortfolioData } from "../../../lib/content/types";
+import type {
+  Language,
+  PortfolioData,
+  SiteCopy,
+} from "../../../lib/content/types";
 import { localize } from "../../../lib/content/i18n";
 import { Hero } from "./Hero";
 import { ProjectGrid } from "./ProjectGrid";
@@ -9,40 +13,13 @@ import { Timeline } from "./Timeline";
 import { SkillGroups } from "./SkillGroups";
 import { Contact } from "./Contact";
 
-const copy = {
-  en: {
-    nav: ["About", "Work", "Experience", "Skills", "Contact"],
-    menu: "Menu",
-    close: "Close",
-    skip: "Skip to content",
-    aboutEyebrow: "Profile / 01",
-    aboutTitle: "Building useful things, thoughtfully.",
-    experienceEyebrow: "Journey / 03",
-    experienceTitle: "Experience that spans products and industries.",
-    education: "Education",
-    workEyebrow: "Selected work / 02",
-    workTitle: "Systems, platforms, and websites made to work.",
-    skillsEyebrow: "Capabilities / 04",
-    skillsTitle: "A practical, full-stack toolkit.",
-  },
-  th: {
-    nav: ["เกี่ยวกับ", "ผลงาน", "ประสบการณ์", "ทักษะ", "ติดต่อ"],
-    menu: "เมนู",
-    close: "ปิด",
-    skip: "ข้ามไปยังเนื้อหา",
-    aboutEyebrow: "โปรไฟล์ / 01",
-    aboutTitle: "สร้างสิ่งที่มีประโยชน์อย่างตั้งใจ",
-    experienceEyebrow: "เส้นทาง / 03",
-    experienceTitle: "ประสบการณ์จากหลากหลายผลิตภัณฑ์และอุตสาหกรรม",
-    education: "การศึกษา",
-    workEyebrow: "ผลงานเด่น / 02",
-    workTitle: "ระบบ แพลตฟอร์ม และเว็บไซต์ที่สร้างมาเพื่อใช้งานจริง",
-    skillsEyebrow: "ความสามารถ / 04",
-    skillsTitle: "เครื่องมือ Full-Stack สำหรับโจทย์ในโลกจริง",
-  },
-} as const;
-
-const anchors = ["about", "work", "experience", "skills", "contact"];
+const anchors: { id: string; label: keyof SiteCopy }[] = [
+  { id: "about", label: "navAbout" },
+  { id: "work", label: "navWork" },
+  { id: "experience", label: "navExperience" },
+  { id: "skills", label: "navSkills" },
+  { id: "contact", label: "navContact" },
+];
 
 export function PortfolioClient({
   data,
@@ -56,7 +33,8 @@ export function PortfolioClient({
   const [language, setLanguage] = useState<Language>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [portfolio, setPortfolio] = useState(data);
-  const t = copy[language];
+  const label = (key: keyof SiteCopy) =>
+    localize(portfolio.settings.copy[key], language);
 
   useEffect(() => {
     const saved = window.localStorage.getItem("portfolio-language");
@@ -101,25 +79,28 @@ export function PortfolioClient({
   return (
     <main>
       <a className="skip-link" href="#main-content">
-        {t.skip}
+        {label("skip")}
       </a>
       {preview ? <div className="preview-banner">Draft preview</div> : null}
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Waranchai — home">
+        <a
+          className="brand"
+          href="#top"
+          aria-label={`${portfolio.settings.fullName} — home`}
+        >
           <span className="brand-mark">W</span>
-          <span className="brand-name">Waranchai</span>
+          <span className="brand-name">
+            {portfolio.settings.fullName.split(" ")[0]}
+          </span>
         </a>
         <nav
+          id="primary-nav"
           className={menuOpen ? "site-nav is-open" : "site-nav"}
           aria-label="Primary navigation"
         >
-          {anchors.map((anchor, index) => (
-            <a
-              href={`#${anchor}`}
-              key={anchor}
-              onClick={() => setMenuOpen(false)}
-            >
-              {t.nav[index]}
+          {anchors.map(({ id, label: key }) => (
+            <a href={`#${id}`} key={id} onClick={() => setMenuOpen(false)}>
+              {label(key)}
             </a>
           ))}
         </nav>
@@ -144,7 +125,7 @@ export function PortfolioClient({
             aria-controls="primary-nav"
             onClick={() => setMenuOpen((open) => !open)}
           >
-            {menuOpen ? t.close : t.menu}
+            {menuOpen ? label("close") : label("menu")}
           </button>
         </div>
       </header>
@@ -154,8 +135,8 @@ export function PortfolioClient({
 
         <section className="section about-section" id="about">
           <div className="section-heading">
-            <p className="eyebrow">{t.aboutEyebrow}</p>
-            <h2>{t.aboutTitle}</h2>
+            <p className="eyebrow">{label("aboutEyebrow")}</p>
+            <h2>{label("aboutTitle")}</h2>
           </div>
           <div className="about-grid">
             <p className="about-copy">
@@ -164,15 +145,15 @@ export function PortfolioClient({
             <div className="about-notes">
               <div>
                 <strong>10+</strong>
-                <span>{language === "th" ? "ปีของประสบการณ์" : "Years of experience"}</span>
+                <span>{label("yearsLabel")}</span>
               </div>
               <div>
                 <strong>{portfolio.projects.length}</strong>
-                <span>{language === "th" ? "ผลงานที่คัดสรร" : "Selected projects"}</span>
+                <span>{label("projectsLabel")}</span>
               </div>
               <div>
                 <strong>TH / EN</strong>
-                <span>{language === "th" ? "สื่อสารสองภาษา" : "Bilingual communication"}</span>
+                <span>{label("bilingualLabel")}</span>
               </div>
             </div>
           </div>
@@ -181,24 +162,24 @@ export function PortfolioClient({
         <ProjectGrid
           projects={portfolio.projects}
           language={language}
-          eyebrow={t.workEyebrow}
-          title={t.workTitle}
+          copy={portfolio.settings.copy}
         />
 
         <Timeline
           experience={portfolio.experience}
           education={portfolio.education}
           language={language}
-          eyebrow={t.experienceEyebrow}
-          title={t.experienceTitle}
-          educationLabel={t.education}
+          eyebrow={label("experienceEyebrow")}
+          title={label("experienceTitle")}
+          educationLabel={label("education")}
+          presentLabel={label("present")}
         />
 
         <SkillGroups
           groups={portfolio.skillGroups}
           language={language}
-          eyebrow={t.skillsEyebrow}
-          title={t.skillsTitle}
+          eyebrow={label("skillsEyebrow")}
+          title={label("skillsTitle")}
         />
 
         <Contact settings={portfolio.settings} language={language} />

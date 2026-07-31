@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type {
   ContentEntry,
   EntryType,
@@ -56,7 +56,7 @@ export function AdminClient() {
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
 
-  async function load() {
+  const load = useCallback(async () => {
     setError("");
     try {
       const result = await requestJson("/api/admin/content");
@@ -65,28 +65,12 @@ export function AdminClient() {
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Unable to load content.");
     }
-  }
+  }, []);
 
   useEffect(() => {
-    let active = true;
-    fetch("/api/admin/content")
-      .then((response) => {
-        if (response.status === 401) {
-          window.location.assign("/admin/login");
-          return null;
-        }
-        return response.json() as Promise<AdminApiResult>;
-      })
-      .then((result) => {
-        if (active && result?.ok && result.data) setData(result.data);
-      })
-      .catch(() => {
-        if (active) setError("Unable to load content.");
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
+    const timer = window.setTimeout(() => void load(), 0);
+    return () => window.clearTimeout(timer);
+  }, [load]);
 
   function showNotice(message: string) {
     setNotice(message);
@@ -197,6 +181,7 @@ export function AdminClient() {
                 liveUrl: "",
                 coverImage: "",
                 imageAlt: { en: "", th: "" },
+                supportingImages: [],
                 featured: false,
               };
     try {

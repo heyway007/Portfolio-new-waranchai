@@ -5,10 +5,10 @@ import { getRuntimeEnv } from "../../../../lib/platform/env.server";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const authenticated = await hasAdminSession(getRuntimeEnv().DB, request);
+  const db = getRuntimeEnv().DB;
+  const authenticated = db ? await hasAdminSession(db, request) : false;
   return NextResponse.json(
     { ok: authenticated },
     { status: authenticated ? 200 : 401 },
   );
 }
-

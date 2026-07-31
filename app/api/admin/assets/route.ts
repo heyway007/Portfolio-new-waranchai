@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "../../../../lib/auth/require-admin.server";
 import {
-  matchesImageSignature,
+  inspectImage,
   validateImageMeta,
 } from "../../../../lib/assets/validation";
 import { getRuntimeEnv } from "../../../../lib/platform/env.server";
@@ -27,15 +27,24 @@ export async function POST(request: Request) {
       );
     }
     const bytes = new Uint8Array(await file.arrayBuffer());
-    if (!matchesImageSignature(file.type, bytes.slice(0, 16))) {
+    const inspection = inspectImage(file.type, bytes);
+    if (!inspection.ok) {
       return NextResponse.json(
-        { ok: false, message: "The file content does not match its image type." },
+        { ok: false, message: inspection.error },
         { status: 400 },
       );
     }
     const id = crypto.randomUUID();
     const key = `portfolio/${id}.${validation.extension}`;
     const bucket = getRuntimeEnv().PORTFOLIO_ASSETS;
+    if (!bucket) {
+      return NextResponse.json(
+        { ok: false, message: "Image storage is unavailable." },
+        { status: 503 },
+      );
+    }
+    const altEn = String(formData.get("altEn") ?? "").trim().slice(0, 240);
+    const altTh = String(formData.get("altTh") ?? "").trim().slice(0, 240);
     await bucket.put(key, bytes, {
       httpMetadata: { contentType: file.type },
     });
@@ -43,10 +52,21 @@ export async function POST(request: Request) {
       await db
         .prepare(
           `INSERT INTO assets
-            (id, storage_key, filename, mime_type, size, alt_en, alt_th, created_at)
-           VALUES (?, ?, ?, ?, ?, '', '', ?)`,
+            (id, storage_key, filename, mime_type, size, alt_en, alt_th, width, height, created_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         )
-        .bind(id, key, file.name, file.type, file.size, Date.now())
+        .bind(
+          id,
+          key,
+          file.name.slice(0, 240),
+          file.type,
+          file.size,
+          altEn,
+          altTh,
+          inspection.width,
+          inspection.height,
+          Date.now(),
+        )
         .run();
     } catch (error) {
       await bucket.delete(key);
@@ -73,4 +93,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

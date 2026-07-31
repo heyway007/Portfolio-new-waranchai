@@ -54,8 +54,9 @@ export const assets = sqliteTable(
     size: integer("size").notNull(),
     altEn: text("alt_en").notNull().default(""),
     altTh: text("alt_th").notNull().default(""),
+    width: integer("width").notNull(),
+    height: integer("height").notNull(),
     createdAt: integer("created_at").notNull(),
   },
   (table) => [index("assets_storage_key_idx").on(table.storageKey)],
 );
-

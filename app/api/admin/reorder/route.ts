@@ -34,9 +34,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     if (error instanceof Response) return error;
+    if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { ok: false, message: "Request body must be valid JSON." },
+        { status: 400 },
+      );
+    }
     const message =
       error instanceof Error ? error.message : "Unable to reorder entries.";
     return NextResponse.json({ ok: false, message }, { status: 400 });
   }
 }
-

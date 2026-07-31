@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  inspectImage,
   matchesImageSignature,
   validateImageMeta,
 } from "../lib/assets/validation";
@@ -29,5 +30,18 @@ describe("image metadata validation", () => {
     const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
     expect(matchesImageSignature("image/png", png)).toBe(true);
     expect(matchesImageSignature("image/jpeg", png)).toBe(false);
+  });
+
+  it("reads dimensions and rejects images with an unsafe pixel count", () => {
+    const png = new Uint8Array(24);
+    png.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], 0);
+    const view = new DataView(png.buffer);
+    view.setUint32(16, 20_000);
+    view.setUint32(20, 20_000);
+
+    expect(inspectImage("image/png", png)).toEqual({
+      ok: false,
+      error: "Image dimensions are too large.",
+    });
   });
 });

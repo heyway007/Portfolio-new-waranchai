@@ -1,10 +1,17 @@
-import { PortfolioClient } from "./components/portfolio/PortfolioClient";
-import { defaultPortfolio } from "../lib/content/default-portfolio";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { cache } from "react";
+import { localize } from "../lib/content/i18n";
+import { getPublishedPortfolio } from "../lib/content/repository.server";
+import { PortfolioClient } from "./components/portfolio/PortfolioClient";
+
+const loadPublicPortfolio = cache(getPublishedPortfolio);
 
 export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
+  const [requestHeaders, data] = await Promise.all([
+    headers(),
+    loadPublicPortfolio(),
+  ]);
   const host =
     requestHeaders.get("x-forwarded-host") ??
     requestHeaders.get("host") ??
@@ -13,9 +20,17 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto") ??
     (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
-  const title = "Waranchai Pungwattananukul — Full-Stack Web Developer";
-  const description =
-    "Full-Stack Web Developer in Bangkok building reliable digital products, platforms, and business systems.";
+  const metadataLanguage = requestHeaders
+    .get("accept-language")
+    ?.toLowerCase()
+    .startsWith("th")
+    ? "th"
+    : "en";
+  const title = localize(data.settings.seoTitle, metadataLanguage);
+  const description = localize(
+    data.settings.seoDescription,
+    metadataLanguage,
+  );
 
   return {
     title,
@@ -44,6 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Home() {
-  return <PortfolioClient data={defaultPortfolio} liveData />;
+export default async function Home() {
+  const data = await loadPublicPortfolio();
+  return <PortfolioClient data={data} liveData />;
 }

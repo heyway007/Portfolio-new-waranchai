@@ -1,6 +1,6 @@
+import Image from "next/image";
 import type { Language, SiteSettings } from "../../../lib/content/types";
 import { localize } from "../../../lib/content/i18n";
-import Image from "next/image";
 
 export function Hero({
   settings,
@@ -9,6 +9,7 @@ export function Hero({
   settings: SiteSettings;
   language: Language;
 }) {
+  const nameParts = settings.fullName.split(" ");
   return (
     <section className="hero" id="top">
       <div className="hero-copy">
@@ -18,8 +19,8 @@ export function Hero({
         </div>
         <p className="hero-eyebrow">{localize(settings.eyebrow, language)}</p>
         <h1>
-          <span>{settings.fullName.split(" ")[0]}</span>
-          <span>{settings.fullName.split(" ").slice(1).join(" ")}</span>
+          <span>{nameParts[0]}</span>
+          <span>{nameParts.slice(1).join(" ")}</span>
         </h1>
         <p className="hero-role">{localize(settings.role, language)}</p>
         <p className="hero-intro">
@@ -27,31 +28,35 @@ export function Hero({
         </p>
         <div className="hero-actions">
           <a className="button button-primary" href="#work">
-            {language === "th" ? "ดูผลงาน" : "View selected work"}
+            {localize(settings.copy.heroWorkAction, language)}
             <span aria-hidden="true">↘</span>
           </a>
           <a className="button button-quiet" href={`mailto:${settings.email}`}>
-            {language === "th" ? "คุยเรื่องโปรเจกต์" : "Start a conversation"}
+            {localize(settings.copy.heroContactAction, language)}
           </a>
         </div>
       </div>
       <div className="hero-visual">
         <div className="portrait-frame">
-          <Image
-            src={settings.portrait}
-            alt={localize(settings.portraitAlt, language)}
-            width={900}
-            height={1300}
-            priority
-            unoptimized
-          />
+          {settings.portrait ? (
+            <Image
+              src={settings.portrait}
+              alt={localize(settings.portraitAlt, language)}
+              width={900}
+              height={1300}
+              priority
+              unoptimized
+            />
+          ) : null}
         </div>
         <div className="hero-stamp" aria-hidden="true">
           <span>FULL</span>
           <span>STACK</span>
           <span>WEB</span>
         </div>
-        <p className="hero-index">Portfolio / 2026</p>
+        <p className="hero-index">
+          Portfolio / {new Date().getFullYear()}
+        </p>
       </div>
     </section>
   );

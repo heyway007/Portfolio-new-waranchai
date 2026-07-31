@@ -10,7 +10,9 @@ export async function GET(_request: Request, context: RouteContext) {
     return new Response("Not found", { status: 404 });
   }
   const key = segments.join("/");
-  const object = await getRuntimeEnv().PORTFOLIO_ASSETS.get(key);
+  const bucket = getRuntimeEnv().PORTFOLIO_ASSETS;
+  if (!bucket) return new Response("Storage unavailable", { status: 503 });
+  const object = await bucket.get(key);
   if (!object) return new Response("Not found", { status: 404 });
   const headers = new Headers();
   object.writeHttpMetadata(headers);
@@ -19,4 +21,3 @@ export async function GET(_request: Request, context: RouteContext) {
   headers.set("X-Content-Type-Options", "nosniff");
   return new Response(object.body, { headers });
 }
-

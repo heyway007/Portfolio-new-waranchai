@@ -22,10 +22,15 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     if (error instanceof Response) return error;
+    if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { ok: false, message: "Request body must be valid JSON." },
+        { status: 400 },
+      );
+    }
     return NextResponse.json(
       { ok: false, message: "Unable to create entry." },
       { status: 503 },
     );
   }
 }
-

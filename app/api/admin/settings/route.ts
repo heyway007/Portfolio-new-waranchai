@@ -18,10 +18,15 @@ export async function PUT(request: Request) {
     return NextResponse.json({ ok: true, value: result.value });
   } catch (error) {
     if (error instanceof Response) return error;
+    if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { ok: false, message: "Request body must be valid JSON." },
+        { status: 400 },
+      );
+    }
     return NextResponse.json(
       { ok: false, message: "Unable to save settings." },
       { status: 503 },
     );
   }
 }
-

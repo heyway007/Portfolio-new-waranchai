@@ -9,10 +9,11 @@ function yearRange(
   startYear: number,
   endYear: number | null,
   current: boolean,
-  language: Language,
+  presentLabel: string,
 ) {
-  if (current) return `${startYear} — ${language === "th" ? "ปัจจุบัน" : "Present"}`;
-  return `${startYear} — ${endYear}`;
+  return current
+    ? `${startYear} — ${presentLabel}`
+    : `${startYear} — ${endYear}`;
 }
 
 export function Timeline({
@@ -22,6 +23,7 @@ export function Timeline({
   eyebrow,
   title,
   educationLabel,
+  presentLabel,
 }: {
   experience: ExperienceEntry[];
   education: EducationEntry[];
@@ -29,6 +31,7 @@ export function Timeline({
   eyebrow: string;
   title: string;
   educationLabel: string;
+  presentLabel: string;
 }) {
   return (
     <section className="section timeline-section" id="experience">
@@ -45,7 +48,7 @@ export function Timeline({
                   entry.startYear,
                   entry.endYear,
                   entry.current,
-                  language,
+                  presentLabel,
                 )}
               </p>
               <div>
@@ -72,4 +75,3 @@ export function Timeline({
     </section>
   );
 }
-
