@@ -40,7 +40,13 @@ export function portfolioFromRows(
         status: row.status,
         sortOrder: row.sort_order,
         ...(entry.type === "project"
-          ? { supportingImages: entry.supportingImages ?? [] }
+          ? {
+              supportingImages: (entry.supportingImages ?? []).map((image) =>
+                typeof image === "string"
+                  ? { url: image, alt: entry.imageAlt }
+                  : image,
+              ),
+            }
           : {}),
       } as ContentEntry;
     });

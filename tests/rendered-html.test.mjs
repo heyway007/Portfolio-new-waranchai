@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
+import { DatabaseSync } from "node:sqlite";
 import { defaultPortfolio } from "../lib/content/default-portfolio.ts";
 
 class FakeStatement {
@@ -85,6 +87,7 @@ async function render(path = "/", bindings = {}) {
       ASSETS: {
         fetch: async () => new Response("Not found", { status: 404 }),
       },
+      DB: portfolioDbWithDraft(""),
       ...bindings,
     },
     {
@@ -122,6 +125,33 @@ test("server HTML and public JSON exclude draft projects from D1", async () => {
     result.data.projects.some((project) => project.id === "project-warehouse"),
     false,
   );
+});
+
+test("fails closed when the public database binding is missing", async () => {
+  const response = await render("/api/portfolio", { DB: undefined });
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get("cache-control"), "no-store");
+});
+
+test("applies the packaged asset dimension migration to the initial schema", async () => {
+  const database = new DatabaseSync(":memory:");
+  try {
+    for (const migration of [
+      "0000_brainy_valeria_richards.sql",
+      "0001_condemned_susan_delgado.sql",
+    ]) {
+      const sql = await readFile(
+        new URL(`../drizzle/${migration}`, import.meta.url),
+        "utf8",
+      );
+      database.exec(sql.replaceAll("--> statement-breakpoint", ""));
+    }
+    const columns = database.prepare("PRAGMA table_info(assets)").all();
+    assert.ok(columns.some((column) => column.name === "width"));
+    assert.ok(columns.some((column) => column.name === "height"));
+  } finally {
+    database.close();
+  }
 });
 
 test("does not ship the starter preview", async () => {

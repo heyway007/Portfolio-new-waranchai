@@ -88,9 +88,9 @@ export function ProjectGrid({
                       <div className="project-supporting-images">
                         {supportingImages.map((image, imageIndex) => (
                           <Image
-                            key={`${image}-${imageIndex}`}
-                            src={image}
-                            alt={`${localize(project.imageAlt, language)} ${imageIndex + 2}`}
+                            key={`${image.url}-${imageIndex}`}
+                            src={image.url}
+                            alt={localize(image.alt, language)}
                             width={1200}
                             height={800}
                             unoptimized

@@ -73,4 +73,15 @@ describe("project validation", () => {
       validateEntry({ ...project, coverImage: "", status: "draft" }).ok,
     ).toBe(true);
   });
+
+  it("requires bilingual-manageable alt text for published supporting images", () => {
+    expect(
+      validateEntry({
+        ...project,
+        supportingImages: [
+          { url: "/images/portfolio/lease-it.webp", alt: { en: "", th: "" } },
+        ],
+      }).ok,
+    ).toBe(false);
+  });
 });

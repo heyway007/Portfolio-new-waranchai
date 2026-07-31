@@ -25,6 +25,7 @@ const tabs: { id: Tab; label: string }[] = [
 interface AdminApiResult {
   ok: boolean;
   message?: string;
+  errors?: Record<string, string>;
   data?: PortfolioData;
   value?: ContentEntry;
 }
@@ -45,7 +46,15 @@ async function requestJson(
     throw new Error("Your session has expired.");
   }
   const result = (await response.json()) as AdminApiResult;
-  if (!response.ok) throw new Error(result.message ?? "Request failed.");
+  if (!response.ok) {
+    const validationSummary = result.errors
+      ? Object.entries(result.errors)
+          .slice(0, 3)
+          .map(([field, message]) => `${field}: ${message}`)
+          .join(" ")
+      : "";
+    throw new Error(result.message || validationSummary || "Request failed.");
+  }
   return result;
 }
 

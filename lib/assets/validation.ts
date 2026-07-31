@@ -119,14 +119,14 @@ function webpDimensions(bytes: Uint8Array): { width: number; height: number } | 
 }
 
 function avifDimensions(bytes: Uint8Array): { width: number; height: number } | null {
-  for (let offset = 4; offset + 12 <= bytes.length; offset += 1) {
+  for (let offset = 4; offset + 16 <= bytes.length; offset += 1) {
     if (
       bytes[offset] === 0x69 &&
       bytes[offset + 1] === 0x73 &&
       bytes[offset + 2] === 0x70 &&
       bytes[offset + 3] === 0x65
     ) {
-      const view = new DataView(bytes.buffer, bytes.byteOffset + offset + 4, 8);
+      const view = new DataView(bytes.buffer, bytes.byteOffset + offset + 8, 8);
       return { width: view.getUint32(0), height: view.getUint32(4) };
     }
   }

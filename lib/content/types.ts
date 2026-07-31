@@ -89,6 +89,11 @@ export interface SkillGroupEntry extends BaseEntry {
   skills: string[];
 }
 
+export interface ProjectImage {
+  url: string;
+  alt: LocalizedText;
+}
+
 export interface ProjectEntry extends BaseEntry {
   type: "project";
   slug: string;
@@ -100,7 +105,7 @@ export interface ProjectEntry extends BaseEntry {
   liveUrl: string;
   coverImage: string;
   imageAlt: LocalizedText;
-  supportingImages?: string[];
+  supportingImages?: ProjectImage[];
   featured: boolean;
 }
 

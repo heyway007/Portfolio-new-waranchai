@@ -53,39 +53,8 @@ const schemaStatements = [
   `CREATE INDEX IF NOT EXISTS assets_storage_key_idx ON assets (storage_key)`,
 ];
 
-const databaseInitialization = new WeakMap<object, Promise<void>>();
-
 export async function ensureDatabase(db: D1Database): Promise<void> {
-  const key = db as unknown as object;
-  let initialization = databaseInitialization.get(key);
-  if (!initialization) {
-    initialization = (async () => {
-      await db.batch(schemaStatements.map((statement) => db.prepare(statement)));
-      const columns = await db
-        .prepare("PRAGMA table_info(assets)")
-        .all<{ name: string }>();
-      const names = new Set((columns.results ?? []).map((column) => column.name));
-      if (!names.has("width")) {
-        await db
-          .prepare(
-            "ALTER TABLE assets ADD COLUMN width INTEGER NOT NULL DEFAULT 0",
-          )
-          .run();
-      }
-      if (!names.has("height")) {
-        await db
-          .prepare(
-            "ALTER TABLE assets ADD COLUMN height INTEGER NOT NULL DEFAULT 0",
-          )
-          .run();
-      }
-    })().catch((error) => {
-      databaseInitialization.delete(key);
-      throw error;
-    });
-    databaseInitialization.set(key, initialization);
-  }
-  await initialization;
+  await db.batch(schemaStatements.map((statement) => db.prepare(statement)));
 }
 
 export async function ensureSeedData(db: D1Database): Promise<void> {

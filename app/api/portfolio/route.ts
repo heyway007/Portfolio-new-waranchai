@@ -8,7 +8,7 @@ export async function GET() {
     const data = await getPublishedPortfolio();
     return NextResponse.json(
       { ok: true, data },
-      { headers: { "Cache-Control": "public, max-age=30, stale-while-revalidate=300" } },
+      { headers: { "Cache-Control": "no-store" } },
     );
   } catch {
     return NextResponse.json(

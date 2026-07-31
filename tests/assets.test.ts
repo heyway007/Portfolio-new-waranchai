@@ -44,4 +44,19 @@ describe("image metadata validation", () => {
       error: "Image dimensions are too large.",
     });
   });
+
+  it("reads AVIF ispe dimensions after FullBox version and flags", () => {
+    const avif = new Uint8Array(28);
+    avif.set([...new TextEncoder().encode("ftypavif")], 4);
+    avif.set([...new TextEncoder().encode("ispe")], 12);
+    const view = new DataView(avif.buffer);
+    view.setUint32(20, 1600);
+    view.setUint32(24, 900);
+
+    expect(inspectImage("image/avif", avif)).toEqual({
+      ok: true,
+      width: 1600,
+      height: 900,
+    });
+  });
 });

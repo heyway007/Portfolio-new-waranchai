@@ -3,6 +3,7 @@ import type {
   EducationEntry,
   ExperienceEntry,
   LocalizedText,
+  ProjectImage,
   ProjectEntry,
   PublishStatus,
   SiteCopy,
@@ -137,6 +138,51 @@ function imageReference(
     errors[path] = "Use an uploaded image or a portfolio image path.";
   }
   return result;
+}
+
+function supportingImageValues(
+  value: unknown,
+  errors: Record<string, string>,
+  requiredAlt: boolean,
+  legacyAlt: LocalizedText,
+): ProjectImage[] {
+  if (!Array.isArray(value)) {
+    errors.supportingImages = "Must be a list of supporting images.";
+    return [];
+  }
+  return value.slice(0, 20).map((item, index) => {
+    if (typeof item === "string") {
+      return {
+        url: imageReference(
+          item,
+          `supportingImages.${index}.url`,
+          errors,
+          true,
+        ),
+        alt: legacyAlt,
+      };
+    }
+    const object = objectValue(item);
+    if (!object) {
+      errors[`supportingImages.${index}`] = "Invalid supporting image.";
+      return { url: "", alt: { en: "", th: "" } };
+    }
+    return {
+      url: imageReference(
+        object.url,
+        `supportingImages.${index}.url`,
+        errors,
+        true,
+      ),
+      alt: localizedValue(
+        object.alt,
+        `supportingImages.${index}.alt`,
+        errors,
+        requiredAlt,
+        240,
+      ),
+    };
+  });
 }
 
 function baseEntry(
@@ -319,12 +365,18 @@ export function validateEntry(value: unknown): ValidationResult<ContentEntry> {
       errors,
       status === "published",
     );
-    const supportingImages = stringList(
-      object.supportingImages ?? [],
-      "supportingImages",
+    const imageAlt = localizedValue(
+      object.imageAlt,
+      "imageAlt",
       errors,
-    ).map((image, index) =>
-      imageReference(image, `supportingImages.${index}`, errors, true),
+      status === "published",
+      240,
+    );
+    const supportingImages = supportingImageValues(
+      object.supportingImages ?? [],
+      errors,
+      status === "published",
+      imageAlt,
     );
     const slug = stringValue(object.slug, "slug", errors, true, 100).toLowerCase();
     if (slug && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
@@ -346,13 +398,7 @@ export function validateEntry(value: unknown): ValidationResult<ContentEntry> {
       ),
       liveUrl,
       coverImage,
-      imageAlt: localizedValue(
-        object.imageAlt,
-        "imageAlt",
-        errors,
-        status === "published",
-        240,
-      ),
+      imageAlt,
       supportingImages,
       featured: typeof object.featured === "boolean" ? object.featured : false,
     };

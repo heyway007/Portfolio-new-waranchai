@@ -107,16 +107,34 @@ export function ProjectEditor({
               <div>
                 <p className="admin-field-title">Supporting images</p>
                 {(project.supportingImages ?? []).map((image, imageIndex) => (
-                  <div className="admin-supporting-image" key={`${image}-${imageIndex}`}>
+                  <div
+                    className="admin-supporting-image"
+                    key={`${image.url}-${imageIndex}`}
+                  >
                     <ImageUploader
-                      value={image}
-                      alt={project.imageAlt}
+                      value={image.url}
+                      alt={image.alt}
                       onChange={(nextImage) =>
                         onChange({
                           ...project,
                           supportingImages: (project.supportingImages ?? []).map(
                             (item, index) =>
-                              index === imageIndex ? nextImage : item,
+                              index === imageIndex
+                                ? { ...item, url: nextImage }
+                                : item,
+                          ),
+                        })
+                      }
+                    />
+                    <BilingualField
+                      label={`Supporting image ${imageIndex + 1} alternative text`}
+                      value={image.alt}
+                      onChange={(alt) =>
+                        onChange({
+                          ...project,
+                          supportingImages: (project.supportingImages ?? []).map(
+                            (item, index) =>
+                              index === imageIndex ? { ...item, alt } : item,
                           ),
                         })
                       }
@@ -145,7 +163,7 @@ export function ProjectEditor({
                       ...project,
                       supportingImages: [
                         ...(project.supportingImages ?? []),
-                        image,
+                        { url: image, alt: { en: "", th: "" } },
                       ],
                     })
                   }
