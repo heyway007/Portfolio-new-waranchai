@@ -1,3 +1,4 @@
+import type { PortfolioStats } from "../../../lib/content/portfolio-stats";
 import type {
   EducationEntry,
   ExperienceEntry,
@@ -24,6 +25,10 @@ export function Timeline({
   title,
   educationLabel,
   presentLabel,
+  stats,
+  yearsLabel,
+  projectsLabel,
+  skillsLabel,
 }: {
   experience: ExperienceEntry[];
   education: EducationEntry[];
@@ -32,6 +37,10 @@ export function Timeline({
   title: string;
   educationLabel: string;
   presentLabel: string;
+  stats: PortfolioStats;
+  yearsLabel: string;
+  projectsLabel: string;
+  skillsLabel: string;
 }) {
   return (
     <section className="section timeline-section" id="experience">
@@ -40,9 +49,9 @@ export function Timeline({
         <h2>{title}</h2>
       </div>
       <div className="timeline-layout">
-        <div className="timeline">
+        <div className="timeline-track">
           {experience.map((entry) => (
-            <article className="timeline-item" key={entry.id}>
+            <article className="timeline-item" key={entry.id} data-reveal>
               <p className="timeline-year">
                 {yearRange(
                   entry.startYear,
@@ -59,17 +68,33 @@ export function Timeline({
             </article>
           ))}
         </div>
-        <aside className="education-panel">
-          <p className="eyebrow">{educationLabel}</p>
-          {education.map((entry) => (
-            <article key={entry.id}>
-              <p className="education-year">
-                {entry.startYear} — {entry.endYear}
-              </p>
-              <h3>{localize(entry.institution, language)}</h3>
-              <p>{localize(entry.qualification, language)}</p>
-            </article>
-          ))}
+        <aside className="journey-panel" data-reveal>
+          <div className="education-panel">
+            <p className="eyebrow">{educationLabel}</p>
+            {education.map((entry) => (
+              <article key={entry.id}>
+                <p className="education-year">
+                  {entry.startYear} — {entry.endYear}
+                </p>
+                <h3>{localize(entry.institution, language)}</h3>
+                <p>{localize(entry.qualification, language)}</p>
+              </article>
+            ))}
+          </div>
+          <div className="journey-summary">
+            <div>
+              <strong>{stats.experienceYears}</strong>
+              <span>{yearsLabel}</span>
+            </div>
+            <div>
+              <strong>{stats.projectCount}</strong>
+              <span>{projectsLabel}</span>
+            </div>
+            <div>
+              <strong>{stats.skillCount}</strong>
+              <span>{skillsLabel}</span>
+            </div>
+          </div>
         </aside>
       </div>
     </section>

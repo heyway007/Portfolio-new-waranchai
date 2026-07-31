@@ -9,17 +9,21 @@ export function Contact({
   language: Language;
 }) {
   return (
-    <footer className="contact-section" id="contact">
-      <div className="contact-topline">
-        <p className="eyebrow">
-          {localize(settings.copy.contactEyebrow, language)}
-        </p>
-        <p>{localize(settings.location, language)}</p>
-      </div>
-      <h2>{localize(settings.contactClosing, language)}</h2>
-      <div className="contact-actions">
-        <a href={`mailto:${settings.email}`}>{settings.email}</a>
-        <a href={`tel:${settings.phone.replaceAll("-", "")}`}>{settings.phone}</a>
+    <footer className="contact-section" id="contact" data-reveal>
+      <div className="contact-layout">
+        <div className="contact-message">
+          <p className="eyebrow">
+            {localize(settings.copy.contactEyebrow, language)}
+          </p>
+          <h2>{localize(settings.contactClosing, language)}</h2>
+        </div>
+        <div className="contact-details">
+          <p>{localize(settings.location, language)}</p>
+          <a href={`mailto:${settings.email}`}>{settings.email}</a>
+          <a href={`tel:${settings.phone.replaceAll("-", "")}`}>
+            {settings.phone}
+          </a>
+        </div>
       </div>
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} {settings.fullName}</p>

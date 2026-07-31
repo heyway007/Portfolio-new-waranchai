@@ -177,6 +177,10 @@ export function PortfolioClient({
           title={label("experienceTitle")}
           educationLabel={label("education")}
           presentLabel={label("present")}
+          stats={stats}
+          yearsLabel={label("yearsLabel")}
+          projectsLabel={label("projectsLabel")}
+          skillsLabel={label("navSkills")}
         />
 
         <SkillGroups

@@ -23,7 +23,7 @@ export function ProjectGrid({
         <p className="eyebrow">{label("workEyebrow")}</p>
         <h2>{label("workTitle")}</h2>
       </div>
-      <div className="projects-list">
+      <div className="projects-grid">
         {projects.map((project, index) => {
           const liveUrl = project.liveUrl.trim();
           const body = localize(project.body, language);
@@ -35,6 +35,7 @@ export function ProjectGrid({
               }
               id={`project-${project.slug}`}
               key={project.id}
+              data-reveal
             >
               <div className="project-media">
                 {project.coverImage ? (

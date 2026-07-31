@@ -116,6 +116,18 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   assert.match(html, /id="contact"/i);
 });
 
+test("renders the dark technical section structure without fake controls", async () => {
+  const response = await render("/");
+  const html = await response.text();
+
+  assert.match(html, /class="projects-grid"/i);
+  assert.match(html, /class="timeline-track"/i);
+  assert.match(html, /class="journey-summary"/i);
+  assert.match(html, /class="skills-grid"/i);
+  assert.match(html, /class="contact-layout"/i);
+  assert.doesNotMatch(html, /<form[^>]*class="contact/i);
+});
+
 test("server HTML and public JSON exclude draft projects from D1", async () => {
   const DB = portfolioDbWithDraft("project-warehouse");
   const htmlResponse = await render("/", { DB });

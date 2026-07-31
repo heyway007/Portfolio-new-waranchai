@@ -23,7 +23,7 @@ export function SkillGroups({
       </div>
       <div className="skills-grid">
         {groups.map((group, index) => (
-          <article className="skill-card" key={group.id}>
+          <article className="skill-card" key={group.id} data-reveal>
             <p className="skill-index">{String(index + 1).padStart(2, "0")}</p>
             <h3>{localize(group.name, language)}</h3>
             <ul>
@@ -37,4 +37,3 @@ export function SkillGroups({
     </section>
   );
 }
-
