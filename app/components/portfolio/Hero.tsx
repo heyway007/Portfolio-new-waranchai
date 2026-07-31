@@ -9,19 +9,15 @@ export function Hero({
   settings: SiteSettings;
   language: Language;
 }) {
-  const nameParts = settings.fullName.split(" ");
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" data-reveal>
       <div className="hero-copy">
         <div className="status-row">
           <span className="status-dot" aria-hidden="true" />
           {localize(settings.availability, language)}
         </div>
         <p className="hero-eyebrow">{localize(settings.eyebrow, language)}</p>
-        <h1>
-          <span>{nameParts[0]}</span>
-          <span>{nameParts.slice(1).join(" ")}</span>
-        </h1>
+        <h1>{settings.fullName}</h1>
         <p className="hero-role">{localize(settings.role, language)}</p>
         <p className="hero-intro">
           {localize(settings.introduction, language)}
@@ -37,6 +33,10 @@ export function Hero({
         </div>
       </div>
       <div className="hero-visual">
+        <div className="hero-technical-frame" aria-hidden="true">
+          <span>{localize(settings.role, language)}</span>
+          <span>{localize(settings.eyebrow, language)}</span>
+        </div>
         <div className="portrait-frame">
           {settings.portrait ? (
             <Image
@@ -48,11 +48,6 @@ export function Hero({
               unoptimized
             />
           ) : null}
-        </div>
-        <div className="hero-stamp" aria-hidden="true">
-          <span>FULL</span>
-          <span>STACK</span>
-          <span>WEB</span>
         </div>
         <p className="hero-index">
           Portfolio / {new Date().getFullYear()}

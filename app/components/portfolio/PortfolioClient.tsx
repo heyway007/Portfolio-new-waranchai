@@ -7,6 +7,7 @@ import type {
   SiteCopy,
 } from "../../../lib/content/types";
 import { localize } from "../../../lib/content/i18n";
+import { getPortfolioStats } from "../../../lib/content/portfolio-stats";
 import { Hero } from "./Hero";
 import { ProjectGrid } from "./ProjectGrid";
 import { Timeline } from "./Timeline";
@@ -35,6 +36,7 @@ export function PortfolioClient({
   const [language, setLanguage] = useState<Language>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [portfolio, setPortfolio] = useState(data);
+  const stats = getPortfolioStats(portfolio);
   const label = (key: keyof SiteCopy) =>
     localize(portfolio.settings.copy[key], language);
 
@@ -79,7 +81,7 @@ export function PortfolioClient({
   }
 
   return (
-    <main>
+    <main className="portfolio-site">
       <a className="skip-link" href="#main-content">
         {label("skip")}
       </a>
@@ -135,7 +137,7 @@ export function PortfolioClient({
       <div id="main-content">
         <Hero settings={portfolio.settings} language={language} />
 
-        <section className="section about-section" id="about">
+        <section className="section about-section" id="about" data-reveal>
           <div className="section-heading">
             <p className="eyebrow">{label("aboutEyebrow")}</p>
             <h2>{label("aboutTitle")}</h2>
@@ -144,18 +146,18 @@ export function PortfolioClient({
             <p className="about-copy">
               {localize(portfolio.settings.about, language)}
             </p>
-            <div className="about-notes">
+            <div className="about-metrics" aria-label={label("aboutTitle")}>
               <div>
-                <strong>10+</strong>
+                <strong>{stats.experienceYears}</strong>
                 <span>{label("yearsLabel")}</span>
               </div>
               <div>
-                <strong>{portfolio.projects.length}</strong>
+                <strong>{stats.projectCount}</strong>
                 <span>{label("projectsLabel")}</span>
               </div>
               <div>
-                <strong>TH / EN</strong>
-                <span>{label("bilingualLabel")}</span>
+                <strong>{stats.skillCount}</strong>
+                <span>{label("navSkills")}</span>
               </div>
             </div>
           </div>

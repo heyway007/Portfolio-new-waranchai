@@ -104,6 +104,12 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   const html = await response.text();
   assert.match(html, /Waranchai Pungwattananukul/i);
   assert.match(html, /Full-Stack Web Developer/i);
+  assert.match(html, /class="portfolio-site"/i);
+  assert.match(html, /class="hero-technical-frame"/i);
+  assert.match(html, /class="about-metrics"/i);
+  assert.match(html, />10<.*Years of experience/is);
+  assert.match(html, />22<.*Skills/is);
+  assert.match(html, /data-reveal/i);
   assert.match(html, /id="work"/i);
   assert.match(html, /id="experience"/i);
   assert.match(html, /id="skills"/i);
