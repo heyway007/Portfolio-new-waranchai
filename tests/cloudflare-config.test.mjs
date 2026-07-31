@@ -19,3 +19,7 @@ test("production build emits one R2 binding per name", () => {
   assert.equal(bindings.length, new Set(bindings).size);
   assert.deepEqual(bindings, ["PORTFOLIO_ASSETS"]);
 });
+
+test("static assets bypass the Worker before dynamic route fallback", () => {
+  assert.equal(config.assets.run_worker_first, false);
+});
