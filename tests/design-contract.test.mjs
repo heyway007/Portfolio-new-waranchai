@@ -23,6 +23,12 @@ test("uses the approved Thai font and dark technical tokens", () => {
   assert.match(layout, /--font-ibm-plex-thai/);
   assert.match(styles, /--surface-page:\s*#0b0d10/i);
   assert.match(styles, /--accent:\s*#ff8a00/i);
+  assert.match(styles, /\.portfolio-site/);
+  assert.match(styles, /\.project-card:hover/);
+  assert.match(styles, /scale\(1\.03\)/);
+  assert.match(styles, /@media\s*\(max-width:\s*1199px\)/);
+  assert.match(styles, /@media\s*\(max-width:\s*760px\)/);
+  assert.match(styles, /transition-delay:\s*calc/);
 });
 
 test("reveals content progressively and respects reduced motion", () => {
