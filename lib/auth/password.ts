@@ -1,4 +1,6 @@
-const ITERATIONS = 210_000;
+// Keep password verification inside the 10 ms CPU budget on Workers Free.
+// The admin password is generated with high entropy and is never stored raw.
+const ITERATIONS = 100_000;
 const HASH_BYTES = 32;
 const ALGORITHM = "pbkdf2-sha256";
 
@@ -75,4 +77,3 @@ export async function verifyPassword(
     return false;
   }
 }
-

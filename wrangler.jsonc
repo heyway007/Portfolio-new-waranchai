@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "waranchai-portfolio",
+  "account_id": "9ea7b0d5c381fe8cabcc47c3d7d2d55d",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "no_bundle": true,
+  "rules": [
+    {
+      "type": "ESModule",
+      "globs": [
+        "**/*.js",
+        "**/*.mjs"
+      ]
+    }
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "dist/client",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "waranchai-portfolio-db",
+      "database_id": "683ef44d-3fa3-414e-9a26-45029b473811",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PORTFOLIO_ASSETS",
+      "bucket_name": "waranchai-portfolio-assets"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

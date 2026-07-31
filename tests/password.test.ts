@@ -9,6 +9,12 @@ const salt = new Uint8Array([
 ]);
 
 describe("password hashing", () => {
+  it("generates hashes within the Cloudflare Workers Free CPU budget", async () => {
+    const stored = await hashPassword("correct horse battery staple", salt);
+
+    expect(stored.split("$")[1]).toBe("100000");
+  });
+
   it("accepts the matching password", async () => {
     const stored = await hashPassword("correct horse battery staple", salt);
     await expect(
@@ -25,4 +31,3 @@ describe("password hashing", () => {
     await expect(verifyPassword("password", "not-a-hash")).resolves.toBe(false);
   });
 });
-
