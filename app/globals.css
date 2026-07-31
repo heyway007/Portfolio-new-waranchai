@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 :root {
+  --surface-page: #0b0d10;
+  --surface-raised: #11151a;
+  --text-primary: #f4f1ea;
+  --text-secondary: #9ca3ad;
+  --accent: #ff8a00;
   --paper: #f3f0e9;
   --paper-strong: #e9e4da;
   --ink: #111317;
@@ -26,8 +31,26 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-geist-sans), "Noto Sans Thai", system-ui, sans-serif;
+  font-family: var(--font-ibm-plex-thai), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+}
+
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-ready [data-reveal]:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.reveal-ready [data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 520ms ease,
+    transform 520ms cubic-bezier(0.2, 0.75, 0.2, 1);
 }
 
 a {

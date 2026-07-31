@@ -12,6 +12,7 @@ import { ProjectGrid } from "./ProjectGrid";
 import { Timeline } from "./Timeline";
 import { SkillGroups } from "./SkillGroups";
 import { Contact } from "./Contact";
+import { useSectionReveal } from "./useSectionReveal";
 
 const anchors: { id: string; label: keyof SiteCopy }[] = [
   { id: "about", label: "navAbout" },
@@ -30,6 +31,7 @@ export function PortfolioClient({
   preview?: boolean;
   liveData?: boolean;
 }) {
+  useSectionReveal();
   const [language, setLanguage] = useState<Language>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [portfolio, setPortfolio] = useState(data);
