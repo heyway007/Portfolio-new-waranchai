@@ -27,13 +27,15 @@
       "binding": "DB",
       "database_name": "waranchai-portfolio-db",
       "database_id": "683ef44d-3fa3-414e-9a26-45029b473811",
-      "migrations_dir": "drizzle"
+      "migrations_dir": "drizzle",
+      "remote": true
     }
   ],
   "r2_buckets": [
     {
       "binding": "PORTFOLIO_ASSETS",
-      "bucket_name": "waranchai-portfolio-assets"
+      "bucket_name": "waranchai-portfolio-assets",
+      "remote": true
     }
   ],
   "observability": {

@@ -19,6 +19,12 @@ A bilingual Modern Editorial portfolio for Waranchai Pungwattananukul. The publi
    npm run dev
    ```
 
+> **Remote development data:** `npm run dev` connects the `DB` and
+> `PORTFOLIO_ASSETS` bindings to the production D1 database and R2 bucket.
+> Changes made through the local CMS, including uploads and deletions, take
+> effect on the deployed site's data immediately. Use
+> `npm run db:migrate:remote` for schema migrations.
+
 The public site is at `/`, the CMS is at `/admin`, and draft preview is at `/preview`.
 
 ## Content behavior
