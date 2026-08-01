@@ -378,7 +378,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
   color: var(--text-secondary);
   font: 600 0.7rem/1.45 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.06em;
@@ -392,15 +392,6 @@ img {
   border-radius: 50%;
   background: #5fd59b;
   box-shadow: 0 0 0 5px rgb(95 213 155 / 12%);
-}
-
-.portfolio-site .hero-eyebrow,
-.portfolio-site .eyebrow {
-  margin: 0 0 1.15rem;
-  color: var(--accent);
-  font: 700 0.7rem/1.4 "Inter", "Prompt", sans-serif;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 
 .portfolio-site .hero h1 {
@@ -710,11 +701,11 @@ img {
   border-top: 1px solid var(--public-line);
 }
 
-.portfolio-site .section-heading {
+.portfolio-site .section-heading,
+.portfolio-site .section-heading-wide {
   display: grid;
-  grid-template-columns: minmax(9rem, 0.3fr) 1fr;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
-  gap: clamp(2rem, 6vw, 6rem);
 }
 
 .portfolio-site .section-heading h2 {
@@ -1232,6 +1223,11 @@ img {
   border-top: 1px solid var(--public-line);
 }
 
+.portfolio-site .education-panel article:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
 .portfolio-site .education-panel article:last-child {
   padding-bottom: 0;
 }
@@ -1650,10 +1646,6 @@ img {
   .portfolio-site .timeline-layout,
   .portfolio-site .contact-layout {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .portfolio-site .section-heading {
-    gap: 0.9rem;
   }
 
   .portfolio-site .section-heading h2 {

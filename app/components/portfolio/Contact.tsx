@@ -12,9 +12,6 @@ export function Contact({
     <footer className="contact-section" id="contact" data-reveal>
       <div className="contact-layout">
         <div className="contact-message">
-          <p className="eyebrow">
-            {localize(settings.copy.contactEyebrow, language)}
-          </p>
           <h2>{localize(settings.contactClosing, language)}</h2>
         </div>
         <div className="contact-details">

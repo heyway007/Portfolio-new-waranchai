@@ -140,7 +140,6 @@ export function ProjectGrid({
   return (
     <section className="section work-section" id="work">
       <div className="section-heading section-heading-wide">
-        <p className="eyebrow">{label("workEyebrow")}</p>
         <h2>{label("workTitle")}</h2>
       </div>
       <div

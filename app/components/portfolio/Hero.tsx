@@ -29,9 +29,6 @@ export function Hero({
             <span className="status-dot" aria-hidden="true" />
             {localize(settings.availability, language)}
           </div>
-          <p className="hero-eyebrow">
-            {localize(settings.eyebrow, language)}
-          </p>
           <h1>{settings.fullName}</h1>
           <p className="hero-role">{localize(settings.role, language)}</p>
           <p className="hero-intro">

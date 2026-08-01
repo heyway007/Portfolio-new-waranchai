@@ -107,6 +107,8 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   assert.match(html, /class="portfolio-site"/i);
   assert.match(html, /class="hero-copy-panel"/i);
   assert.match(html, /class="hero-code-editor"/i);
+  assert.doesNotMatch(html, /class="hero-eyebrow"/i);
+  assert.doesNotMatch(html, /class="eyebrow"/i);
   assert.match(html, /class="about-metrics"/i);
   assert.match(html, />10<.*Years of experience/is);
   assert.match(html, />22<.*Skills/is);

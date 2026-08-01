@@ -139,7 +139,6 @@ export function PortfolioClient({
 
         <section className="section about-section" id="about" data-reveal>
           <div className="section-heading">
-            <p className="eyebrow">{label("aboutEyebrow")}</p>
             <h2>{label("aboutTitle")}</h2>
           </div>
           <div className="about-grid">
@@ -173,9 +172,7 @@ export function PortfolioClient({
           experience={portfolio.experience}
           education={portfolio.education}
           language={language}
-          eyebrow={label("experienceEyebrow")}
           title={label("experienceTitle")}
-          educationLabel={label("education")}
           presentLabel={label("present")}
           stats={stats}
           yearsLabel={label("yearsLabel")}
@@ -186,7 +183,6 @@ export function PortfolioClient({
         <SkillGroups
           groups={portfolio.skillGroups}
           language={language}
-          eyebrow={label("skillsEyebrow")}
           title={label("skillsTitle")}
         />
 

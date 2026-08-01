@@ -21,9 +21,7 @@ export function Timeline({
   experience,
   education,
   language,
-  eyebrow,
   title,
-  educationLabel,
   presentLabel,
   stats,
   yearsLabel,
@@ -33,9 +31,7 @@ export function Timeline({
   experience: ExperienceEntry[];
   education: EducationEntry[];
   language: Language;
-  eyebrow: string;
   title: string;
-  educationLabel: string;
   presentLabel: string;
   stats: PortfolioStats;
   yearsLabel: string;
@@ -45,7 +41,6 @@ export function Timeline({
   return (
     <section className="section timeline-section" id="experience">
       <div className="section-heading">
-        <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
       </div>
       <div className="timeline-layout">
@@ -70,7 +65,6 @@ export function Timeline({
         </div>
         <aside className="journey-panel" data-reveal>
           <div className="education-panel">
-            <p className="eyebrow">{educationLabel}</p>
             {education.map((entry) => (
               <article key={entry.id}>
                 <p className="education-year">

@@ -98,6 +98,22 @@ test("uses a responsive three-card project carousel", () => {
   assert.match(reducedMotionStyles, /animation:\s*none/);
 });
 
+test("uses one-column public headings without eyebrow styling", () => {
+  assertCssRule(
+    styles,
+    ".portfolio-site .section-heading",
+    "grid-template-columns",
+    "minmax(0, 1fr)",
+  );
+  assertCssRule(
+    styles,
+    ".portfolio-site .section-heading-wide",
+    "grid-template-columns",
+    "minmax(0, 1fr)",
+  );
+  assert.doesNotMatch(styles, /\.portfolio-site \.hero-eyebrow/);
+});
+
 test("uses only the Inter and Prompt stack across the application", () => {
   const source = `${layout}\n${styles}`;
 

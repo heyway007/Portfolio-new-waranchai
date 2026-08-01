@@ -9,18 +9,15 @@ import { getSkillIcon } from "../../../lib/content/skill-icons";
 export function SkillGroups({
   groups,
   language,
-  eyebrow,
   title,
 }: {
   groups: SkillGroupEntry[];
   language: Language;
-  eyebrow: string;
   title: string;
 }) {
   return (
     <section className="section skills-section" id="skills">
       <div className="section-heading">
-        <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
       </div>
       <div className="skills-grid">
