@@ -33,9 +33,7 @@ function assertCssRule(css, selector, property, value) {
   assert.ok(matchesRule, `${selector} must set ${property}: ${value}`);
 }
 
-test("uses the approved Thai font and dark technical tokens", () => {
-  assert.match(layout, /IBM_Plex_Sans_Thai_Looped/);
-  assert.match(layout, /--font-ibm-plex-thai/);
+test("uses the approved dark technical tokens", () => {
   assert.match(styles, /--surface-page:\s*#0b0d10/i);
   assert.match(styles, /--accent:\s*#ff8a00/i);
   assert.match(styles, /\.portfolio-site/);
@@ -44,6 +42,34 @@ test("uses the approved Thai font and dark technical tokens", () => {
   assert.match(styles, /@media\s*\(max-width:\s*1199px\)/);
   assert.match(styles, /@media\s*\(max-width:\s*760px\)/);
   assert.match(styles, /transition-delay:\s*calc/);
+});
+
+test("uses only the Inter and Prompt stack across the application", () => {
+  const source = `${layout}\n${styles}`;
+
+  assert.match(layout, /\bInter\b/);
+  assert.match(layout, /\bPrompt\b/);
+  assert.match(layout, /--font-inter/);
+  assert.match(layout, /--font-prompt/);
+  assert.doesNotMatch(
+    source,
+    /IBM_Plex_Sans_Thai_Looped|Geist_Mono|--font-ibm-plex-thai|--font-geist-mono/,
+  );
+
+  assert.match(
+    styles,
+    /font-family:\s*["']Inter["'],\s*["']Prompt["'],\s*sans-serif;/,
+  );
+
+  const explicitFontRules = styles.match(/font:\s*[^;]+;/g) ?? [];
+  for (const rule of explicitFontRules) {
+    if (rule === "font: inherit;") continue;
+    assert.match(
+      rule,
+      /["']Inter["'],\s*["']Prompt["'],\s*sans-serif/,
+      `Unexpected font shorthand: ${rule}`,
+    );
+  }
 });
 
 test("reveals content progressively and respects reduced motion", () => {

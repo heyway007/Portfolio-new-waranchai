@@ -35,7 +35,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-ibm-plex-thai), system-ui, sans-serif;
+  font-family: "Inter", "Prompt", sans-serif;
   text-rendering: optimizeLegibility;
 }
 
@@ -183,7 +183,7 @@ img {
   background: var(--accent);
   color: #17100a;
   text-align: center;
-  font: 700 0.72rem/1 var(--font-geist-mono);
+  font: 700 0.72rem/1 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -223,7 +223,7 @@ img {
   border-radius: 50%;
   background: rgb(255 138 0 / 10%);
   color: var(--accent);
-  font: 750 0.82rem/1 var(--font-geist-mono);
+  font: 750 0.82rem/1 "Inter", "Prompt", sans-serif;
   box-shadow: inset 0 0 0 4px rgb(255 138 0 / 4%);
 }
 
@@ -290,7 +290,7 @@ img {
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  font: 700 0.68rem/1 var(--font-geist-mono);
+  font: 700 0.68rem/1 "Inter", "Prompt", sans-serif;
   transition:
     background 180ms ease,
     color 180ms ease;
@@ -340,7 +340,7 @@ img {
   gap: 0.65rem;
   margin-bottom: clamp(2.25rem, 5vw, 4.75rem);
   color: var(--text-secondary);
-  font: 600 0.7rem/1.45 var(--font-geist-mono);
+  font: 600 0.7rem/1.45 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -358,7 +358,7 @@ img {
 .portfolio-site .eyebrow {
   margin: 0 0 1.15rem;
   color: var(--accent);
-  font: 700 0.7rem/1.4 var(--font-geist-mono);
+  font: 700 0.7rem/1.4 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -515,7 +515,7 @@ img {
   padding: 0.25rem 0.4rem;
   background: var(--surface-page);
   color: var(--accent);
-  font: 650 0.58rem/1.25 var(--font-geist-mono);
+  font: 650 0.58rem/1.25 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -575,7 +575,7 @@ img {
   border-radius: 0.2rem;
   background: rgb(11 13 16 / 84%);
   color: var(--text-secondary);
-  font: 650 0.62rem/1 var(--font-geist-mono);
+  font: 650 0.62rem/1 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   backdrop-filter: blur(8px);
@@ -741,7 +741,7 @@ img {
   border-radius: 50%;
   background: rgb(11 13 16 / 86%);
   color: var(--accent);
-  font: 700 0.68rem/1 var(--font-geist-mono);
+  font: 700 0.68rem/1 "Inter", "Prompt", sans-serif;
   backdrop-filter: blur(8px);
 }
 
@@ -757,7 +757,7 @@ img {
   padding-bottom: 0.9rem;
   border-bottom: 1px solid var(--public-line);
   color: var(--text-secondary);
-  font: 600 0.64rem/1.4 var(--font-geist-mono);
+  font: 600 0.64rem/1.4 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
@@ -796,7 +796,7 @@ img {
   border: 1px solid var(--public-line);
   border-radius: 999px;
   color: var(--text-secondary);
-  font: 600 0.66rem/1.2 var(--font-geist-mono);
+  font: 600 0.66rem/1.2 "Inter", "Prompt", sans-serif;
 }
 
 .portfolio-site .project-link,
@@ -931,7 +931,7 @@ img {
 .portfolio-site .education-year {
   margin: 0;
   color: var(--accent);
-  font: 650 0.68rem/1.6 var(--font-geist-mono);
+  font: 650 0.68rem/1.6 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -1055,7 +1055,7 @@ img {
 .portfolio-site .skill-index {
   margin: 0 0 2.75rem;
   color: var(--accent);
-  font: 700 0.68rem/1 var(--font-geist-mono);
+  font: 700 0.68rem/1 "Inter", "Prompt", sans-serif;
   transition: transform 200ms ease;
 }
 
@@ -1088,7 +1088,7 @@ img {
   border: 1px solid var(--public-line);
   border-radius: 999px;
   color: var(--text-secondary);
-  font: 550 0.66rem/1.3 var(--font-geist-mono);
+  font: 550 0.66rem/1.3 "Inter", "Prompt", sans-serif;
   overflow-wrap: anywhere;
 }
 
@@ -1530,7 +1530,7 @@ img {
 .admin-shell .eyebrow {
   margin: 0 0 1.25rem;
   color: var(--blue);
-  font: 700 0.72rem/1.3 var(--font-geist-mono);
+  font: 700 0.72rem/1.3 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -1838,7 +1838,7 @@ img {
 
 .bilingual-field label span {
   color: var(--muted);
-  font: 650 0.66rem/1 var(--font-geist-mono);
+  font: 650 0.66rem/1 "Inter", "Prompt", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -1950,7 +1950,7 @@ img {
 .status-pill {
   padding: 0.35rem 0.6rem;
   border-radius: 999px;
-  font: 700 0.62rem/1 var(--font-geist-mono);
+  font: 700 0.62rem/1 "Inter", "Prompt", sans-serif;
   text-transform: uppercase;
 }
 

@@ -12,7 +12,7 @@
 
 - Work directly on the existing `main` checkout; the user explicitly declined a worktree.
 - Apply the change to the public Portfolio, preview, admin, and admin login.
-- Use the exact family order `var(--font-inter), var(--font-prompt), sans-serif` everywhere.
+- Use the exact family order `"Inter", "Prompt", sans-serif` everywhere; keep the generated variables only for loading both families.
 - Load Inter and Prompt weights 400, 500, 600, and 700 with `display: "swap"`.
 - Load Inter subset `latin`; load Prompt subsets `latin` and `thai`.
 - Remove `IBM_Plex_Sans_Thai_Looped`, `Geist_Mono`, `--font-ibm-plex-thai`, and `--font-geist-mono` completely.
@@ -40,7 +40,7 @@
 
 - Consumes: `Inter` and `Prompt` from `next/font/google`.
 - Produces: CSS variables `--font-inter` and `--font-prompt` on `<body>`.
-- Produces: canonical CSS family list `var(--font-inter), var(--font-prompt), sans-serif`.
+- Produces: canonical CSS family list `"Inter", "Prompt", sans-serif`.
 
 - [ ] **Step 1: Write the failing typography contract**
 
@@ -61,7 +61,7 @@ test("uses only the Inter and Prompt stack across the application", () => {
 
   assert.match(
     styles,
-    /font-family:\s*var\(--font-inter\),\s*var\(--font-prompt\),\s*sans-serif;/,
+    /font-family:\s*["']Inter["'],\s*["']Prompt["'],\s*sans-serif;/,
   );
 
   const explicitFontRules = styles.match(/font:\s*[^;]+;/g) ?? [];
@@ -69,7 +69,7 @@ test("uses only the Inter and Prompt stack across the application", () => {
     if (rule === "font: inherit;") continue;
     assert.match(
       rule,
-      /var\(--font-inter\),\s*var\(--font-prompt\),\s*sans-serif/,
+      /["']Inter["'],\s*["']Prompt["'],\s*sans-serif/,
       `Unexpected font shorthand: ${rule}`,
     );
   }
@@ -125,14 +125,14 @@ In `app/globals.css`, change the body rule to:
 
 ```css
 body {
-  font-family: var(--font-inter), var(--font-prompt), sans-serif;
+  font-family: "Inter", "Prompt", sans-serif;
 }
 ```
 
 Mechanically replace every terminal `var(--font-geist-mono)` inside a `font:` shorthand with:
 
 ```css
-var(--font-inter), var(--font-prompt), sans-serif
+"Inter", "Prompt", sans-serif
 ```
 
 Do not change the shorthand's weight, size, or line-height. Confirm no old font names or variables remain:

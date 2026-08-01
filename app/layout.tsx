@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import {
-  Geist_Mono,
-  IBM_Plex_Sans_Thai_Looped,
-} from "next/font/google";
+import { Inter, Prompt } from "next/font/google";
 import "./globals.css";
 
-const ibmPlexSansThai = IBM_Plex_Sans_Thai_Looped({
-  variable: "--font-ibm-plex-thai",
-  subsets: ["latin", "thai"],
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const prompt = Prompt({
+  variable: "--font-prompt",
+  subsets: ["latin", "thai"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -58,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ibmPlexSansThai.variable} ${geistMono.variable}`}>
+      <body className={`${inter.variable} ${prompt.variable}`}>
         {children}
       </body>
     </html>

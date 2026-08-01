@@ -37,13 +37,15 @@ families.
 The canonical family declaration is:
 
 ```css
-font-family: var(--font-inter), var(--font-prompt), sans-serif;
+font-family: "Inter", "Prompt", sans-serif;
 ```
 
 Every `font:` shorthand that currently ends with the Geist variable keeps its
 existing weight, size, and line height but ends with the canonical stack. The
 global body rule uses the same order. No element retains a separate monospace
-family.
+family. The generated variable classes remain on the body to load both font
+files, while the CSS uses literal family names so the generic fallback embedded
+by `next/font` cannot appear between Inter and Prompt.
 
 ## Error and Fallback Behavior
 
