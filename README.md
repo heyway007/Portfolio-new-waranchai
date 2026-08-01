@@ -46,7 +46,7 @@ npm run build
 ## Security
 
 - Never commit `.dev.vars` or production credentials.
-- Hosted values belong in Sites environment variables.
+- Deploy production with `npm run deploy:cloudflare`. Configure runtime secrets with Wrangler; D1 `DB` and R2 `PORTFOLIO_ASSETS` remain declared in `wrangler.jsonc`.
 - Sessions use secure HTTP-only cookies and expire after 12 hours.
 - Login attempts are limited to five failures per 15-minute window.
 - All admin APIs enforce server-side session checks.
