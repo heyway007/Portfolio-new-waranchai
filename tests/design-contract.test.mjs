@@ -60,6 +60,44 @@ test("uses a full-width header and responsive code hero", () => {
   assert.match(reducedMotionStyles, /animation:\s*none/);
 });
 
+test("uses a responsive three-card project carousel", () => {
+  const reducedMotionStyles = styles.slice(
+    styles.indexOf("@media (prefers-reduced-motion: reduce)"),
+    styles.indexOf("/* Admin */"),
+  );
+
+  assertCssRule(
+    styles,
+    ".portfolio-site .project-slide-grid",
+    "grid-template-columns",
+    "repeat(3, minmax(0, 1fr))",
+  );
+  assertCssRule(
+    styles,
+    ".portfolio-site .project-carousel-button",
+    "min-width",
+    "44px",
+  );
+  assertCssRule(
+    styles,
+    ".portfolio-site .project-carousel-button",
+    "min-height",
+    "44px",
+  );
+  assert.match(styles, /@keyframes\s+project-slide-forward/);
+  assert.match(styles, /@keyframes\s+project-slide-backward/);
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*1199px\)[\s\S]*?\.portfolio-site \.project-slide-grid\s*{[^}]*repeat\(2,/,
+  );
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.portfolio-site \.project-slide-grid\s*{[^}]*minmax\(0,\s*1fr\)/,
+  );
+  assert.match(reducedMotionStyles, /\.portfolio-site \.project-slide-grid/);
+  assert.match(reducedMotionStyles, /animation:\s*none/);
+});
+
 test("uses only the Inter and Prompt stack across the application", () => {
   const source = `${layout}\n${styles}`;
 
