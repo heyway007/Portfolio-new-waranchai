@@ -13,6 +13,7 @@ import { ProjectGrid } from "./ProjectGrid";
 import { Timeline } from "./Timeline";
 import { SkillGroups } from "./SkillGroups";
 import { Contact } from "./Contact";
+import { BackToTop } from "./BackToTop";
 import { useSectionReveal } from "./useSectionReveal";
 
 const anchors: { id: string; label: keyof SiteCopy }[] = [
@@ -188,6 +189,7 @@ export function PortfolioClient({
 
         <Contact settings={portfolio.settings} language={language} />
       </div>
+      <BackToTop label={label("backToTop")} />
     </main>
   );
 }

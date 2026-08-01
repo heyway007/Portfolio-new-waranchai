@@ -24,7 +24,6 @@ export function Contact({
       </div>
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} {settings.fullName}</p>
-        <a href="#top">{localize(settings.copy.backToTop, language)}</a>
       </div>
     </footer>
   );

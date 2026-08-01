@@ -17,6 +17,24 @@ const revealHook = await readFile(
   ),
   "utf8",
 );
+const backToTopSource = await readFile(
+  new URL(
+    "../app/components/portfolio/BackToTop.tsx",
+    import.meta.url,
+  ),
+  "utf8",
+);
+const portfolioClientSource = await readFile(
+  new URL(
+    "../app/components/portfolio/PortfolioClient.tsx",
+    import.meta.url,
+  ),
+  "utf8",
+);
+const contactSource = await readFile(
+  new URL("../app/components/portfolio/Contact.tsx", import.meta.url),
+  "utf8",
+);
 
 function assertCssRule(css, selector, property, value) {
   const propertyPattern = new RegExp(
@@ -58,6 +76,19 @@ test("uses a full-width header and responsive code hero", () => {
   assert.match(styles, /grid-template-columns:\s*minmax\(0,\s*1fr\)/);
   assert.match(reducedMotionStyles, /\.portfolio-site \.code-caret/);
   assert.match(reducedMotionStyles, /animation:\s*none/);
+});
+
+test("mounts one localized floating Back to Top control", () => {
+  assert.match(
+    backToTopSource,
+    /addEventListener\("scroll",\s*syncVisibility,\s*{\s*passive:\s*true\s*}\)/,
+  );
+  assert.match(backToTopSource, /className="back-to-top"/);
+  assert.match(
+    portfolioClientSource,
+    /<BackToTop\s+label={label\("backToTop"\)}\s*\/>/,
+  );
+  assert.doesNotMatch(contactSource, /href="#top"/);
 });
 
 test("uses a responsive three-card project carousel", () => {
