@@ -126,6 +126,34 @@ export function SettingsEditor({
             />
           </label>
         </div>
+        <label>
+          LINE add-friend URL
+          <input
+            type="url"
+            value={value.lineUrl}
+            onChange={(event) =>
+              onChange({ ...value, lineUrl: event.target.value })
+            }
+          />
+        </label>
+        <BilingualField
+          label="LINE link label"
+          value={value.lineLabel}
+          onChange={(lineLabel) => onChange({ ...value, lineLabel })}
+        />
+        <div>
+          <p className="admin-field-title">LINE QR code</p>
+          <ImageUploader
+            value={value.lineQrImage}
+            alt={value.lineQrAlt}
+            onChange={(lineQrImage) => onChange({ ...value, lineQrImage })}
+          />
+        </div>
+        <BilingualField
+          label="LINE QR alternative text"
+          value={value.lineQrAlt}
+          onChange={(lineQrAlt) => onChange({ ...value, lineQrAlt })}
+        />
         <BilingualField
           label="Location"
           value={value.location}

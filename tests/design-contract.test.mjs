@@ -39,6 +39,13 @@ const heroSource = await readFile(
   new URL("../app/components/portfolio/Hero.tsx", import.meta.url),
   "utf8",
 );
+const settingsEditorSource = await readFile(
+  new URL(
+    "../app/admin/components/SettingsEditor.tsx",
+    import.meta.url,
+  ),
+  "utf8",
+);
 
 function assertCssRule(css, selector, property, value) {
   const propertyPattern = new RegExp(
@@ -91,6 +98,23 @@ test("links the Hero contact action to the Warm Graphite Contact flow", () => {
   assert.match(
     styles,
     /\.portfolio-site\s*{[^}]*background:\s*radial-gradient\(circle at 16% 18%,\s*rgb\(255 138 0 \/ 18%\),\s*transparent 36%\),\s*radial-gradient\(circle at 86% 72%,\s*rgb\(98 124 154 \/ 22%\),\s*transparent 43%\),\s*linear-gradient\(135deg,\s*#1c2229 0%,\s*#11161c 55%,\s*#202832 100%\)/,
+  );
+});
+
+test("edits every LINE contact field through the Admin profile", () => {
+  assert.match(
+    settingsEditorSource,
+    /type="url"[\s\S]*?value={value\.lineUrl}/,
+  );
+  assert.match(
+    settingsEditorSource,
+    /label="LINE link label"[\s\S]*?value={value\.lineLabel}/,
+  );
+  assert.match(settingsEditorSource, /value={value\.lineQrImage}/);
+  assert.match(settingsEditorSource, /alt={value\.lineQrAlt}/);
+  assert.match(
+    settingsEditorSource,
+    /label="LINE QR alternative text"[\s\S]*?value={value\.lineQrAlt}/,
   );
 });
 
