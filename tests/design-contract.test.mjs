@@ -99,6 +99,13 @@ test("uses a responsive three-card project carousel", () => {
 });
 
 test("uses one-column public headings without eyebrow styling", () => {
+  assertCssRule(styles, ".portfolio-site .section-heading", "width", "100%");
+  assertCssRule(
+    styles,
+    ".portfolio-site .section-heading-wide",
+    "width",
+    "100%",
+  );
   assertCssRule(
     styles,
     ".portfolio-site .section-heading",
@@ -110,6 +117,18 @@ test("uses one-column public headings without eyebrow styling", () => {
     ".portfolio-site .section-heading-wide",
     "grid-template-columns",
     "minmax(0, 1fr)",
+  );
+  assertCssRule(
+    styles,
+    ".portfolio-site .section-heading h2",
+    "width",
+    "100%",
+  );
+  assertCssRule(
+    styles,
+    ".portfolio-site .section-heading h2",
+    "max-width",
+    "none",
   );
   assert.doesNotMatch(styles, /\.portfolio-site \.hero-eyebrow/);
 });
