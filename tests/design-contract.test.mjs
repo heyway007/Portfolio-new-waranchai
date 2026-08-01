@@ -133,6 +133,24 @@ test("uses one-column public headings without eyebrow styling", () => {
   assert.doesNotMatch(styles, /\.portfolio-site \.hero-eyebrow/);
 });
 
+test("uses compact uniform public section spacing", () => {
+  assertCssRule(styles, ".portfolio-site", "--section-space", "5rem");
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*1199px\)[\s\S]*?\.portfolio-site\s*{[^}]*--section-space:\s*4rem/,
+  );
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.portfolio-site\s*{[^}]*--section-space:\s*3rem/,
+  );
+  assertCssRule(
+    styles,
+    ".portfolio-site .contact-section",
+    "padding-block",
+    "var(--section-space)",
+  );
+});
+
 test("uses only the Inter and Prompt stack across the application", () => {
   const source = `${layout}\n${styles}`;
 

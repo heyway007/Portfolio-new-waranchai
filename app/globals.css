@@ -74,7 +74,7 @@ img {
     var(--surface-page);
   color: var(--text-primary);
   color-scheme: dark;
-  --section-space: clamp(5.5rem, 9vw, 8.5rem);
+  --section-space: 5rem;
 }
 
 .portfolio-site::before {
@@ -1374,7 +1374,8 @@ img {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  padding: var(--section-space) max(2rem, calc((100vw - 82.5rem) / 2)) 2rem;
+  padding-block: var(--section-space);
+  padding-inline: max(2rem, calc((100vw - 82.5rem) / 2));
   border-top: 1px solid var(--public-line);
   background:
     radial-gradient(circle at 78% 36%, rgb(255 138 0 / 19%), transparent 25rem),
@@ -1465,7 +1466,7 @@ img {
 @media (max-width: 1199px) {
   .portfolio-site {
     --content-rail: calc(100vw - 3rem);
-    --section-space: clamp(5rem, 9vw, 7rem);
+    --section-space: 4rem;
   }
 
   .portfolio-site .site-nav {
@@ -1538,7 +1539,7 @@ img {
 
   .portfolio-site {
     --content-rail: calc(100vw - 2rem);
-    --section-space: 4.75rem;
+    --section-space: 3rem;
   }
 
   .portfolio-site .site-header {
