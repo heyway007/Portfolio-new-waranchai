@@ -189,7 +189,15 @@ test("renders the dark technical section structure without fake controls", async
   const response = await render("/");
   const html = await response.text();
 
-  assert.match(html, /class="projects-grid"/i);
+  assert.match(html, /class="project-carousel"/i);
+  assert.match(html, /class="project-carousel-viewport"/i);
+  assert.match(html, /class="project-slide-grid"/i);
+  assert.match(html, /class="project-carousel-controls"/i);
+  assert.match(html, /aria-current="true"/i);
+  assert.equal(
+    (html.match(/class="project-card(?:\s|")/g) ?? []).length,
+    3,
+  );
   assert.match(html, /class="timeline-track"/i);
   assert.match(html, /class="journey-summary"/i);
   assert.match(html, /class="skills-grid"/i);
