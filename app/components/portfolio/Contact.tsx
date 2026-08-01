@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Language, SiteSettings } from "../../../lib/content/types";
 import { localize } from "../../../lib/content/i18n";
 
@@ -16,10 +17,40 @@ export function Contact({
         </div>
         <div className="contact-details">
           <p>{localize(settings.location, language)}</p>
-          <a href={`mailto:${settings.email}`}>{settings.email}</a>
-          <a href={`tel:${settings.phone.replaceAll("-", "")}`}>
+          <a className="contact-link" href={`mailto:${settings.email}`}>
+            {settings.email}
+          </a>
+          <a
+            className="contact-link"
+            href={`tel:${settings.phone.replaceAll("-", "")}`}
+          >
             {settings.phone}
           </a>
+          <div className="line-contact">
+            <a
+              className="line-qr-link"
+              href={settings.lineUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={localize(settings.lineLabel, language)}
+            >
+              <Image
+                src={settings.lineQrImage}
+                alt={localize(settings.lineQrAlt, language)}
+                width={900}
+                height={900}
+                unoptimized
+              />
+            </a>
+            <a
+              className="contact-link line-text-link"
+              href={settings.lineUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {localize(settings.lineLabel, language)}
+            </a>
+          </div>
         </div>
       </div>
       <div className="footer-bottom">

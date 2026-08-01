@@ -151,6 +151,17 @@ test("styles the smaller Contact heading and floating control", () => {
   );
 });
 
+test("styles an accessible responsive LINE contact card", () => {
+  assertCssRule(styles, ".portfolio-site .line-contact", "display", "grid");
+  assertCssRule(styles, ".portfolio-site .line-qr-link", "width", "11rem");
+  assertCssRule(styles, ".portfolio-site .line-qr-link", "aspect-ratio", "1");
+  assert.match(styles, /\.portfolio-site \.line-qr-link:focus-visible/);
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.portfolio-site \.line-qr-link/,
+  );
+});
+
 test("uses a responsive three-card project carousel", () => {
   const reducedMotionStyles = styles.slice(
     styles.indexOf("@media (prefers-reduced-motion: reduce)"),
@@ -304,8 +315,8 @@ test("removes every public interaction transform for reduced motion", () => {
     ".portfolio-site .project-card:focus-within .project-media img",
     ".portfolio-site .project-link:hover::after",
     ".portfolio-site .project-link:focus-visible::after",
-    ".portfolio-site .contact-details a:hover::after",
-    ".portfolio-site .contact-details a:focus-visible::after",
+    ".portfolio-site .contact-details .contact-link:hover::after",
+    ".portfolio-site .contact-details .contact-link:focus-visible::after",
   ];
 
   for (const selector of transformedInteractions) {

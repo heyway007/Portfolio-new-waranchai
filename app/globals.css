@@ -1416,7 +1416,7 @@ img {
   font-size: 0.9375rem;
 }
 
-.portfolio-site .contact-details a {
+.portfolio-site .contact-details .contact-link {
   position: relative;
   width: max-content;
   max-width: 100%;
@@ -1427,7 +1427,7 @@ img {
   overflow-wrap: anywhere;
 }
 
-.portfolio-site .contact-details a::after {
+.portfolio-site .contact-details .contact-link::after {
   position: absolute;
   right: 0;
   bottom: 0.35rem;
@@ -1440,9 +1440,46 @@ img {
   transition: transform 180ms ease;
 }
 
-.portfolio-site .contact-details a:hover::after,
-.portfolio-site .contact-details a:focus-visible::after {
+.portfolio-site .contact-details .contact-link:hover::after,
+.portfolio-site .contact-details .contact-link:focus-visible::after {
   transform: scaleX(1);
+}
+
+.portfolio-site .line-contact {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--public-line);
+}
+
+.portfolio-site .line-qr-link {
+  width: 11rem;
+  max-width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: block;
+  border: 1px solid rgb(255 138 0 / 35%);
+  border-radius: 0.65rem;
+  background: #fff;
+  transition: border-color 180ms ease;
+}
+
+.portfolio-site .line-qr-link:hover {
+  border-color: var(--accent);
+}
+
+.portfolio-site .line-qr-link:focus-visible {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.portfolio-site .line-qr-link img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .portfolio-site .footer-bottom {
@@ -1792,6 +1829,10 @@ img {
     font-size: clamp(2rem, 10vw, 3.25rem);
   }
 
+  .portfolio-site .line-qr-link {
+    width: min(11rem, 48vw);
+  }
+
   .portfolio-site .back-to-top {
     right: 1rem;
     bottom: 1rem;
@@ -1848,8 +1889,8 @@ img {
   .portfolio-site .button-quiet:focus-visible,
   .portfolio-site .project-link:hover::after,
   .portfolio-site .project-link:focus-visible::after,
-  .portfolio-site .contact-details a:hover::after,
-  .portfolio-site .contact-details a:focus-visible::after {
+  .portfolio-site .contact-details .contact-link:hover::after,
+  .portfolio-site .contact-details .contact-link:focus-visible::after {
     transform: none;
   }
 

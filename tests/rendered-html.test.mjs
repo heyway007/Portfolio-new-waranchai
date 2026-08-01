@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFile, readdir } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { DatabaseSync } from "node:sqlite";
 import { defaultPortfolio } from "../lib/content/default-portfolio.ts";
 
@@ -117,6 +117,32 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   assert.match(html, /id="experience"/i);
   assert.match(html, /id="skills"/i);
   assert.match(html, /id="contact"/i);
+});
+
+test("renders a secure LINE QR code and text contact link", async () => {
+  await access(
+    new URL("../public/images/portfolio/line-qr.jpg", import.meta.url),
+  );
+  const response = await render("/");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+
+  assert.match(html, /class="line-contact"/i);
+  assert.match(html, /src="\/images\/portfolio\/line-qr\.jpg"/i);
+  assert.match(html, /alt="LINE QR code for Waranchai"/i);
+  assert.equal(
+    (html.match(/href="https:\/\/line\.me\/ti\/p\/gxajAHMh2V"/g) ?? [])
+      .length,
+    2,
+  );
+  assert.match(
+    html,
+    /class="line-qr-link"[^>]*target="_blank"[^>]*rel="noreferrer"/i,
+  );
+  assert.match(
+    html,
+    /class="contact-link line-text-link"[^>]*target="_blank"[^>]*rel="noreferrer"/i,
+  );
 });
 
 test("emits self-hosted Thai fonts without filesystem URLs", async () => {
