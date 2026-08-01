@@ -116,6 +116,15 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   assert.match(html, /id="contact"/i);
 });
 
+test("renders deployable self-hosted font URLs", async () => {
+  const response = await render("/");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /url\(\/assets\/_vinext_fonts\//i);
+  assert.doesNotMatch(html, /(?:[A-Z]:)?[^"'()]*\.vinext\/fonts/i);
+});
+
 test("renders host-aware social metadata from the root layout", async () => {
   const response = await render(
     "/admin/login",

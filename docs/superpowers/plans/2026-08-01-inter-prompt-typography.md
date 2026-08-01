@@ -25,6 +25,7 @@
 - `tests/design-contract.test.mjs`: executable typography contract proving the approved loaders/variables exist and every old family is absent.
 - `app/layout.tsx`: Inter and Prompt loader configuration and body variable classes.
 - `app/globals.css`: canonical Inter/Prompt stack for the body and every explicit `font:` shorthand.
+- `scripts/fix-vinext-font-paths.mjs`: Windows build hardening that maps Vinext's local font cache paths to deployable asset URLs.
 
 ---
 

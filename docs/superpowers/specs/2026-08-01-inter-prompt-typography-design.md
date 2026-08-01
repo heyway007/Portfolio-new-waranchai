@@ -31,6 +31,9 @@ families.
 - The body receives both generated variable classes.
 - `IBM_Plex_Sans_Thai_Looped`, `Geist_Mono`, `--font-ibm-plex-thai`, and
   `--font-geist-mono` are removed.
+- After Vinext builds on Windows, `scripts/fix-vinext-font-paths.mjs` rewrites
+  cached local `.vinext/fonts` URLs in the server bundle to the matching
+  `/assets/_vinext_fonts/` URLs emitted for production.
 
 ### CSS usage
 
@@ -54,6 +57,8 @@ by `next/font` cannot appear between Inter and Prompt.
 - Thai content uses Prompt because Inter does not provide Thai glyphs.
 - `display: "swap"` keeps text visible during font loading.
 - No text is hidden or delayed by JavaScript.
+- The build fails if deployable self-hosted font URLs are missing or a local
+  `.vinext/fonts` path remains in the server output.
 
 ## Testing and Acceptance Criteria
 
