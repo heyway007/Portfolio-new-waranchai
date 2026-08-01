@@ -105,7 +105,8 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   assert.match(html, /Waranchai Pungwattananukul/i);
   assert.match(html, /Full-Stack Web Developer/i);
   assert.match(html, /class="portfolio-site"/i);
-  assert.match(html, /class="hero-technical-frame"/i);
+  assert.match(html, /class="hero-copy-panel"/i);
+  assert.match(html, /class="hero-code-editor"/i);
   assert.match(html, /class="about-metrics"/i);
   assert.match(html, />10<.*Years of experience/is);
   assert.match(html, />22<.*Skills/is);
@@ -193,6 +194,9 @@ test("renders the dark technical section structure without fake controls", async
   assert.match(html, /class="journey-summary"/i);
   assert.match(html, /class="skills-grid"/i);
   assert.match(html, /class="contact-layout"/i);
+  assert.match(html, /realtime-dashboard\.blade\.php/i);
+  assert.match(html, /Reverb connected/i);
+  assert.doesNotMatch(html, /class="portrait-frame"/i);
   assert.doesNotMatch(html, /<form[^>]*class="contact/i);
 });
 

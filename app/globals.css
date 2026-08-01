@@ -192,9 +192,10 @@ img {
   position: sticky;
   z-index: 50;
   top: 0;
-  width: var(--content-rail);
+  width: 100%;
   min-height: 5rem;
-  margin: 0 auto;
+  margin: 0;
+  padding-inline: clamp(1rem, 3vw, 3rem);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -320,25 +321,64 @@ img {
 }
 
 .portfolio-site .hero {
-  width: var(--content-rail);
+  width: min(100%, 100rem);
   min-height: calc(100svh - 5rem);
   margin: 0 auto;
-  padding: clamp(4rem, 8vw, 7.5rem) 0 clamp(4.5rem, 8vw, 7rem);
+  padding: clamp(1.5rem, 3vw, 3rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(20rem, 0.72fr);
-  align-items: center;
-  gap: clamp(4rem, 8vw, 7.5rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
-.portfolio-site .hero-copy {
+.portfolio-site .hero-copy-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-width: 0;
+  min-height: clamp(36rem, 72vh, 46rem);
+  display: grid;
+  border: 1px solid var(--public-line);
+  border-radius: 0.55rem;
+  background: var(--surface-raised);
+  box-shadow: 0 1.5rem 5rem rgb(0 0 0 / 24%);
+}
+
+.portfolio-site .hero-copy-panel::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(11 13 16 / 96%) 0%, rgb(11 13 16 / 82%) 48%, rgb(11 13 16 / 30%) 100%),
+    linear-gradient(0deg, rgb(11 13 16 / 82%) 0%, transparent 55%);
+  content: "";
+  pointer-events: none;
+}
+
+.portfolio-site .hero-portrait-background {
+  z-index: -2;
+  object-fit: cover;
+  object-position: 58% 18%;
+  filter: saturate(0.68) brightness(0.72) contrast(1.08);
+  transform: scale(1.015);
+}
+
+.portfolio-site .hero-copy-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 43rem);
+  min-height: 100%;
+  padding: clamp(2rem, 4.5vw, 4.75rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .portfolio-site .status-row {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: clamp(2.25rem, 5vw, 4.75rem);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
   color: var(--text-secondary);
   font: 600 0.7rem/1.45 "Inter", "Prompt", sans-serif;
   letter-spacing: 0.06em;
@@ -364,13 +404,13 @@ img {
 }
 
 .portfolio-site .hero h1 {
-  max-width: 11ch;
+  max-width: 12ch;
   margin: 0;
   overflow-wrap: break-word;
-  font-size: clamp(4.2rem, 7.4vw, 7.2rem);
+  font-size: clamp(3.3rem, 5vw, 5.4rem);
   font-weight: 720;
   letter-spacing: -0.065em;
-  line-height: 0.91;
+  line-height: 0.93;
   text-wrap: balance;
 }
 
@@ -468,117 +508,199 @@ img {
   transform: translateY(-2px);
 }
 
-.portfolio-site .hero-visual {
+.portfolio-site .hero-code-panel {
   position: relative;
-  min-width: 0;
-  padding: 1rem;
-}
-
-.portfolio-site .hero-technical-frame {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border: 1px solid rgb(255 138 0 / 34%);
-  background-image:
-    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px);
-  background-size: 28px 28px;
-  box-shadow: 0 0 42px rgb(255 138 0 / 7%);
-}
-
-.portfolio-site .hero-technical-frame::before,
-.portfolio-site .hero-technical-frame::after {
-  position: absolute;
-  width: 1.1rem;
-  height: 1.1rem;
-  border-color: var(--accent);
-  content: "";
-}
-
-.portfolio-site .hero-technical-frame::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid;
-  border-left: 2px solid;
-}
-
-.portfolio-site .hero-technical-frame::after {
-  right: -1px;
-  bottom: -1px;
-  border-right: 2px solid;
-  border-bottom: 2px solid;
-}
-
-.portfolio-site .hero-technical-frame span {
-  position: absolute;
-  z-index: 2;
-  padding: 0.25rem 0.4rem;
-  background: var(--surface-page);
-  color: var(--accent);
-  font: 650 0.58rem/1.25 "Inter", "Prompt", sans-serif;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.portfolio-site .hero-technical-frame span:first-child {
-  top: 0.55rem;
-  left: 0.55rem;
-}
-
-.portfolio-site .hero-technical-frame span:last-child {
-  right: 0.55rem;
-  bottom: 0.55rem;
-  max-width: calc(100% - 1.1rem);
   overflow: hidden;
+  min-width: 0;
+  min-height: clamp(36rem, 72vh, 46rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--public-line);
+  border-radius: 0.55rem;
+  background-color: #0d1117;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px),
+    radial-gradient(circle at 85% 15%, rgb(255 138 0 / 10%), transparent 22rem);
+  background-size: 28px 28px, 28px 28px, auto;
+}
+
+.portfolio-site .hero-code-editor {
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid rgb(255 255 255 / 13%);
+  border-radius: 0.5rem;
+  background: rgb(10 13 17 / 96%);
+  box-shadow:
+    0 2rem 5rem rgb(0 0 0 / 42%),
+    0 0 0 1px rgb(255 138 0 / 5%);
+  color: #d6deeb;
+}
+
+.portfolio-site .code-editor-toolbar {
+  min-height: 3.15rem;
+  padding: 0 0.85rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+  border-bottom: 1px solid rgb(255 255 255 / 9%);
+  background: #11161d;
+  font: 600 0.66rem/1 "Inter", "Prompt", sans-serif;
+}
+
+.portfolio-site .code-window-controls {
+  display: flex;
+  gap: 0.36rem;
+}
+
+.portfolio-site .code-window-controls span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #4a515d;
+}
+
+.portfolio-site .code-window-controls span:first-child {
+  background: #ff665c;
+}
+
+.portfolio-site .code-window-controls span:nth-child(2) {
+  background: #ffbd44;
+}
+
+.portfolio-site .code-window-controls span:last-child {
+  background: #00ca4e;
+}
+
+.portfolio-site .code-editor-tab {
+  overflow: hidden;
+  display: flex;
+  min-height: 3.15rem;
+  align-items: center;
+  gap: 0.48rem;
+  color: #eef2f7;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.portfolio-site .portrait-frame {
-  position: relative;
-  overflow: hidden;
-  min-height: 32rem;
-  border: 1px solid var(--public-line);
-  border-radius: 0.45rem;
-  background:
-    linear-gradient(145deg, rgb(255 138 0 / 15%), transparent 45%),
-    var(--surface-raised);
+.portfolio-site .code-editor-tab span {
+  color: var(--accent);
+  font-size: 0.58rem;
 }
 
-.portfolio-site .portrait-frame::after {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to top, rgb(11 13 16 / 32%), transparent 36%),
-    linear-gradient(90deg, rgb(255 138 0 / 7%), transparent 35%);
-  content: "";
-  pointer-events: none;
+.portfolio-site .code-editor-status {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: #78dba9;
+  white-space: nowrap;
 }
 
-.portfolio-site .portrait-frame img {
-  width: 100%;
-  height: 100%;
-  min-height: 32rem;
-  object-fit: cover;
-  object-position: center top;
-  filter: saturate(0.78) contrast(1.04);
+.portfolio-site .code-editor-status span {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: #5fd59b;
+  box-shadow: 0 0 0 4px rgb(95 213 155 / 9%);
 }
 
-.portfolio-site .hero-index {
-  position: absolute;
-  right: 2rem;
-  bottom: 2rem;
-  z-index: 2;
+.portfolio-site .code-editor-body {
+  height: clamp(25rem, 48vh, 31rem);
+  overflow: auto;
+  padding: 1.15rem 0 1.4rem;
+  scrollbar-color: rgb(255 138 0 / 40%) transparent;
+  scrollbar-width: thin;
+}
+
+.portfolio-site .code-lines {
+  min-width: 36rem;
   margin: 0;
-  padding: 0.55rem 0.75rem;
-  border: 1px solid rgb(255 138 0 / 38%);
-  border-radius: 0.2rem;
-  background: rgb(11 13 16 / 84%);
-  color: var(--text-secondary);
-  font: 650 0.62rem/1 "Inter", "Prompt", sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  backdrop-filter: blur(8px);
+  padding: 0;
+  counter-reset: code-line;
+  list-style: none;
+}
+
+.portfolio-site .code-lines li {
+  min-height: 1.48rem;
+  display: grid;
+  grid-template-columns: 3.1rem minmax(0, 1fr);
+  counter-increment: code-line;
+  color: #c8d3e0;
+  font: 500 0.72rem/1.65 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: pre;
+}
+
+.portfolio-site .code-lines li::before {
+  padding-right: 0.9rem;
+  color: #495363;
+  content: counter(code-line);
+  text-align: right;
+  user-select: none;
+}
+
+.portfolio-site .code-lines code {
+  padding-right: 1rem;
+  font: inherit;
+}
+
+.portfolio-site .code-token-comment {
+  color: #68778b;
+  font-style: italic;
+}
+
+.portfolio-site .code-token-blade {
+  color: #ffad66;
+}
+
+.portfolio-site .code-token-string {
+  color: #addb67;
+}
+
+.portfolio-site .code-token-keyword {
+  color: #82aaff;
+  font-weight: 650;
+}
+
+.portfolio-site .code-caret {
+  display: inline-block;
+  width: 0.46rem;
+  height: 1.05em;
+  margin-left: 0.12rem;
+  background: var(--accent);
+  vertical-align: -0.13em;
+  animation: code-caret-blink 820ms steps(1, end) infinite;
+}
+
+.portfolio-site .code-editor-footer {
+  min-height: 2.7rem;
+  padding: 0.55rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-top: 1px solid rgb(255 255 255 / 9%);
+  background: #11161d;
+  color: #8e9aaa;
+  font: 600 0.6rem/1 "Inter", "Prompt", sans-serif;
+}
+
+.portfolio-site .code-editor-footer span {
+  padding: 0.36rem 0.5rem;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 999px;
+}
+
+.portfolio-site .code-editor-footer .code-editor-channel {
+  margin-left: auto;
+  border-color: rgb(255 138 0 / 24%);
+  color: var(--accent-bright);
+}
+
+@keyframes code-caret-blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 .portfolio-site .section {
@@ -1223,17 +1345,17 @@ img {
   }
 
   .portfolio-site .hero {
-    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.75fr);
-    gap: 3rem;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 1.25rem;
   }
 
   .portfolio-site .hero h1 {
-    font-size: clamp(3.7rem, 7.2vw, 5.8rem);
+    font-size: clamp(3rem, 5.2vw, 4.6rem);
   }
 
-  .portfolio-site .portrait-frame,
-  .portfolio-site .portrait-frame img {
-    min-height: 28rem;
+  .portfolio-site .hero-copy-panel,
+  .portfolio-site .hero-code-panel {
+    min-height: 38rem;
   }
 
   .portfolio-site .about-grid {
@@ -1292,6 +1414,7 @@ img {
 
   .portfolio-site .site-header {
     min-height: 4.5rem;
+    padding-inline: 1rem;
     grid-template-columns: 1fr auto;
   }
 
@@ -1335,9 +1458,10 @@ img {
 
   .portfolio-site .hero {
     min-height: auto;
-    padding: 3.5rem 0 4.75rem;
+    width: 100%;
+    padding: 1rem 1rem 4.75rem;
     grid-template-columns: minmax(0, 1fr);
-    gap: 3.5rem;
+    gap: 1rem;
   }
 
   .portfolio-site .status-row {
@@ -1348,7 +1472,7 @@ img {
 
   .portfolio-site .hero h1 {
     max-width: 100%;
-    font-size: clamp(3rem, 15vw, 4.6rem);
+    font-size: clamp(2.65rem, 13vw, 4.2rem);
     line-height: 0.94;
   }
 
@@ -1356,20 +1480,38 @@ img {
     font-size: clamp(1.15rem, 6vw, 1.55rem);
   }
 
-  .portfolio-site .hero-visual {
-    width: min(31rem, calc(100% - 0.5rem));
-    margin: 0 auto;
-    padding: 0.7rem;
+  .portfolio-site .hero-copy-panel {
+    min-height: clamp(38rem, 118vw, 46rem);
   }
 
-  .portfolio-site .portrait-frame,
-  .portfolio-site .portrait-frame img {
-    min-height: clamp(24rem, 120vw, 34rem);
+  .portfolio-site .hero-copy-content {
+    padding: clamp(1.5rem, 7vw, 2.5rem);
+    justify-content: flex-end;
   }
 
-  .portfolio-site .hero-index {
-    right: 1.35rem;
-    bottom: 1.35rem;
+  .portfolio-site .hero-portrait-background {
+    object-position: 62% 18%;
+  }
+
+  .portfolio-site .hero-code-panel {
+    min-height: 32rem;
+    padding: 0.6rem;
+  }
+
+  .portfolio-site .code-editor-toolbar {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .portfolio-site .code-editor-status {
+    display: none;
+  }
+
+  .portfolio-site .code-editor-body {
+    height: 25rem;
+  }
+
+  .portfolio-site .code-editor-channel {
+    display: none;
   }
 
   .portfolio-site .section-heading,
@@ -1527,6 +1669,11 @@ img {
   .portfolio-site .footer-bottom a:hover::after,
   .portfolio-site .footer-bottom a:focus-visible::after {
     transform: none;
+  }
+
+  .portfolio-site .code-caret {
+    animation: none;
+    opacity: 1;
   }
 }
 

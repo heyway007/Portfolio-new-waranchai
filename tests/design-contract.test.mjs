@@ -44,6 +44,22 @@ test("uses the approved dark technical tokens", () => {
   assert.match(styles, /transition-delay:\s*calc/);
 });
 
+test("uses a full-width header and responsive code hero", () => {
+  const reducedMotionStyles = styles.slice(
+    styles.indexOf("@media (prefers-reduced-motion: reduce)"),
+    styles.indexOf("/* Admin */"),
+  );
+
+  assertCssRule(styles, ".portfolio-site .site-header", "width", "100%");
+  assert.match(styles, /\.hero-copy-panel/);
+  assert.match(styles, /\.hero-portrait-background/);
+  assert.match(styles, /\.hero-code-editor/);
+  assert.match(styles, /\.code-caret/);
+  assert.match(styles, /grid-template-columns:\s*minmax\(0,\s*1fr\)/);
+  assert.match(reducedMotionStyles, /\.portfolio-site \.code-caret/);
+  assert.match(reducedMotionStyles, /animation:\s*none/);
+});
+
 test("uses only the Inter and Prompt stack across the application", () => {
   const source = `${layout}\n${styles}`;
 
@@ -58,8 +74,15 @@ test("uses only the Inter and Prompt stack across the application", () => {
   );
 
   const explicitFontRules = styles.match(/font:\s*[^;]+;/g) ?? [];
+  const monospaceRules = explicitFontRules.filter((rule) =>
+    rule.includes("ui-monospace"),
+  );
+  assert.deepEqual(monospaceRules, [
+    "font: 500 0.72rem/1.65 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;",
+  ]);
+
   for (const rule of explicitFontRules) {
-    if (rule === "font: inherit;") continue;
+    if (rule === "font: inherit;" || rule.includes("ui-monospace")) continue;
     assert.match(
       rule,
       /["']Inter["'],\s*["']Prompt["'],\s*sans-serif/,
