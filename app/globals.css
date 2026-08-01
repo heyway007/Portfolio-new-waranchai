@@ -1394,7 +1394,7 @@ img {
   max-width: 14ch;
   margin: 0;
   overflow-wrap: break-word;
-  font-size: clamp(3rem, 7vw, 7rem);
+  font-size: clamp(2.25rem, 5vw, 4.75rem);
   font-weight: 690;
   letter-spacing: -0.065em;
   line-height: 0.92;
@@ -1415,8 +1415,7 @@ img {
   font-size: 0.9375rem;
 }
 
-.portfolio-site .contact-details a,
-.portfolio-site .footer-bottom a {
+.portfolio-site .contact-details a {
   position: relative;
   width: max-content;
   max-width: 100%;
@@ -1427,8 +1426,7 @@ img {
   overflow-wrap: anywhere;
 }
 
-.portfolio-site .contact-details a::after,
-.portfolio-site .footer-bottom a::after {
+.portfolio-site .contact-details a::after {
   position: absolute;
   right: 0;
   bottom: 0.35rem;
@@ -1442,9 +1440,7 @@ img {
 }
 
 .portfolio-site .contact-details a:hover::after,
-.portfolio-site .contact-details a:focus-visible::after,
-.portfolio-site .footer-bottom a:hover::after,
-.portfolio-site .footer-bottom a:focus-visible::after {
+.portfolio-site .contact-details a:focus-visible::after {
   transform: scaleX(1);
 }
 
@@ -1461,6 +1457,47 @@ img {
 
 .portfolio-site .footer-bottom p {
   margin: 0;
+}
+
+.portfolio-site .back-to-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 60;
+  display: inline-flex;
+  min-width: 48px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgb(255 138 0 / 55%);
+  border-radius: 999px;
+  background: rgb(11 13 16 / 88%);
+  box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 35%);
+  color: var(--accent);
+  font-family: "Inter", "Prompt", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.portfolio-site .back-to-top:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #0b0d10;
+}
+
+.portfolio-site .back-to-top:focus-visible {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 @media (max-width: 1199px) {
@@ -1751,7 +1788,12 @@ img {
   }
 
   .portfolio-site .contact-message h2 {
-    font-size: clamp(2.8rem, 14vw, 4.5rem);
+    font-size: clamp(2rem, 10vw, 3.25rem);
+  }
+
+  .portfolio-site .back-to-top {
+    right: 1rem;
+    bottom: 1rem;
   }
 
   .portfolio-site .footer-bottom {
@@ -1806,9 +1848,7 @@ img {
   .portfolio-site .project-link:hover::after,
   .portfolio-site .project-link:focus-visible::after,
   .portfolio-site .contact-details a:hover::after,
-  .portfolio-site .contact-details a:focus-visible::after,
-  .portfolio-site .footer-bottom a:hover::after,
-  .portfolio-site .footer-bottom a:focus-visible::after {
+  .portfolio-site .contact-details a:focus-visible::after {
     transform: none;
   }
 

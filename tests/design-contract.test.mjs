@@ -91,6 +91,26 @@ test("mounts one localized floating Back to Top control", () => {
   assert.doesNotMatch(contactSource, /href="#top"/);
 });
 
+test("styles the smaller Contact heading and floating control", () => {
+  assertCssRule(
+    styles,
+    ".portfolio-site .contact-message h2",
+    "font-size",
+    "clamp(2.25rem, 5vw, 4.75rem)",
+  );
+  assertCssRule(styles, ".portfolio-site .back-to-top", "position", "fixed");
+  assertCssRule(styles, ".portfolio-site .back-to-top", "min-width", "48px");
+  assertCssRule(styles, ".portfolio-site .back-to-top", "min-height", "48px");
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.portfolio-site \.contact-message h2\s*{[^}]*font-size:\s*clamp\(2rem,\s*10vw,\s*3.25rem\)/,
+  );
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.portfolio-site \.back-to-top/,
+  );
+});
+
 test("uses a responsive three-card project carousel", () => {
   const reducedMotionStyles = styles.slice(
     styles.indexOf("@media (prefers-reduced-motion: reduce)"),
@@ -246,8 +266,6 @@ test("removes every public interaction transform for reduced motion", () => {
     ".portfolio-site .project-link:focus-visible::after",
     ".portfolio-site .contact-details a:hover::after",
     ".portfolio-site .contact-details a:focus-visible::after",
-    ".portfolio-site .footer-bottom a:hover::after",
-    ".portfolio-site .footer-bottom a:focus-visible::after",
   ];
 
   for (const selector of transformedInteractions) {
