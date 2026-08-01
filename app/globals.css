@@ -70,8 +70,9 @@ img {
   min-height: 100vh;
   overflow: clip;
   background:
-    radial-gradient(circle at 78% 10%, rgb(255 138 0 / 10%), transparent 28rem),
-    var(--surface-page);
+    radial-gradient(circle at 16% 18%, rgb(255 138 0 / 18%), transparent 36%),
+    radial-gradient(circle at 86% 72%, rgb(98 124 154 / 22%), transparent 43%),
+    linear-gradient(135deg, #1c2229 0%, #11161c 55%, #202832 100%);
   color: var(--text-primary);
   color-scheme: dark;
   --section-space: 5rem;

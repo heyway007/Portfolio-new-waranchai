@@ -39,10 +39,7 @@ export function Hero({
               {localize(settings.copy.heroWorkAction, language)}
               <span aria-hidden="true">↘</span>
             </a>
-            <a
-              className="button button-quiet"
-              href={`mailto:${settings.email}`}
-            >
+            <a className="button button-quiet" href="#contact">
               {localize(settings.copy.heroContactAction, language)}
             </a>
           </div>
