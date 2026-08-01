@@ -230,6 +230,7 @@ test("renders the dark technical section structure without fake controls", async
   assert.match(html, /class="journey-summary"/i);
   assert.match(html, /class="skills-grid"/i);
   assert.match(html, /class="contact-layout"/i);
+  assert.doesNotMatch(html, /class="(?:skill-index|project-number)"/i);
   assert.match(html, /realtime-dashboard\.blade\.php/i);
   assert.match(html, /Reverb connected/i);
   assert.doesNotMatch(html, /class="portrait-frame"/i);

@@ -21,9 +21,8 @@ export function SkillGroups({
         <h2>{title}</h2>
       </div>
       <div className="skills-grid">
-        {groups.map((group, index) => (
+        {groups.map((group) => (
           <article className="skill-card" key={group.id} data-reveal>
-            <p className="skill-index">{String(index + 1).padStart(2, "0")}</p>
             <h3>{localize(group.name, language)}</h3>
             <ul className="skill-items">
               {group.skills.map((skill) => (

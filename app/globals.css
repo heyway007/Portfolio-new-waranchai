@@ -970,23 +970,6 @@ img {
   transform: scale(1.03);
 }
 
-.portfolio-site .project-number {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 0.75rem;
-  z-index: 2;
-  display: grid;
-  width: 2.7rem;
-  height: 2.7rem;
-  place-items: center;
-  border: 1px solid rgb(255 138 0 / 45%);
-  border-radius: 50%;
-  background: rgb(11 13 16 / 86%);
-  color: var(--accent);
-  font: 700 0.68rem/1 "Inter", "Prompt", sans-serif;
-  backdrop-filter: blur(8px);
-}
-
 .portfolio-site .project-copy {
   min-width: 0;
   padding: 1.5rem;
@@ -1288,7 +1271,7 @@ img {
 .portfolio-site .skill-card {
   min-width: 0;
   display: grid;
-  grid-template-columns: 3rem minmax(10rem, 0.3fr) minmax(0, 1fr);
+  grid-template-columns: minmax(10rem, 0.3fr) minmax(0, 1fr);
   gap: clamp(1rem, 2vw, 2rem);
   align-items: start;
   padding: clamp(1.25rem, 2.5vw, 2rem) 0;
@@ -1298,13 +1281,6 @@ img {
 .portfolio-site .skill-card:hover,
 .portfolio-site .skill-card:focus-within {
   border-color: rgb(255 138 0 / 40%);
-}
-
-.portfolio-site .skill-index {
-  margin: 0;
-  padding-top: 0.35rem;
-  color: var(--accent);
-  font: 700 0.68rem/1 "Inter", "Prompt", sans-serif;
 }
 
 .portfolio-site .skill-card h3 {
@@ -1593,7 +1569,7 @@ img {
   }
 
   .portfolio-site .skill-card {
-    grid-template-columns: 2.5rem minmax(8rem, 0.28fr) minmax(0, 1fr);
+    grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1fr);
     gap: 1rem;
   }
 
@@ -1800,7 +1776,7 @@ img {
   }
 
   .portfolio-site .skill-card {
-    grid-template-columns: 2rem minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
     padding: 1.25rem 0;
   }
@@ -1810,7 +1786,6 @@ img {
   }
 
   .portfolio-site .skill-items {
-    grid-column: 1 / -1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.6rem;
   }

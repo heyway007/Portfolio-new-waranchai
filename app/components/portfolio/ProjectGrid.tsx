@@ -196,9 +196,6 @@ export function ProjectGrid({
                         aria-hidden="true"
                       />
                     )}
-                    <span className="project-number">
-                      {String(projectIndex + 1).padStart(2, "0")}
-                    </span>
                   </div>
                   <div className="project-copy">
                     <div className="project-meta">

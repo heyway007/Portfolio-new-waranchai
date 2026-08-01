@@ -46,6 +46,14 @@ const settingsEditorSource = await readFile(
   ),
   "utf8",
 );
+const skillGroupsSource = await readFile(
+  new URL("../app/components/portfolio/SkillGroups.tsx", import.meta.url),
+  "utf8",
+);
+const projectGridSource = await readFile(
+  new URL("../app/components/portfolio/ProjectGrid.tsx", import.meta.url),
+  "utf8",
+);
 
 function assertCssRule(css, selector, property, value) {
   const propertyPattern = new RegExp(
@@ -115,6 +123,27 @@ test("edits every LINE contact field through the Admin profile", () => {
   assert.match(
     settingsEditorSource,
     /label="LINE QR alternative text"[\s\S]*?value={value\.lineQrAlt}/,
+  );
+});
+
+test("removes public sequence numbers and reclaims their layout columns", () => {
+  assert.doesNotMatch(skillGroupsSource, /skill-index/);
+  assert.doesNotMatch(projectGridSource, /project-number/);
+  assert.doesNotMatch(styles, /\.portfolio-site \.skill-index/);
+  assert.doesNotMatch(styles, /\.portfolio-site \.project-number/);
+  assertCssRule(
+    styles,
+    ".portfolio-site .skill-card",
+    "grid-template-columns",
+    "minmax(10rem, 0.3fr) minmax(0, 1fr)",
+  );
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*1199px\)[\s\S]*?\.portfolio-site \.skill-card\s*{[^}]*grid-template-columns:\s*minmax\(8rem,\s*0\.28fr\)\s+minmax\(0,\s*1fr\)/,
+  );
+  assert.match(
+    styles,
+    /@media\s*\(max-width:\s*760px\)[\s\S]*?\.portfolio-site \.skill-card\s*{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/,
   );
 });
 
