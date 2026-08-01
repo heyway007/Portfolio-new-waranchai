@@ -51,4 +51,31 @@ describe("portfolioFromRows", () => {
       "project-draft",
     ]);
   });
+
+  it("fills LINE defaults into stored settings created before LINE fields", () => {
+    const legacySettings = {
+      ...defaultPortfolio.settings,
+    } as Record<string, unknown>;
+    delete legacySettings.lineUrl;
+    delete legacySettings.lineLabel;
+    delete legacySettings.lineQrImage;
+    delete legacySettings.lineQrAlt;
+
+    const result = portfolioFromRows(
+      JSON.stringify(legacySettings),
+      [],
+      false,
+    );
+
+    expect(result.settings.lineUrl).toBe(
+      "https://line.me/ti/p/gxajAHMh2V",
+    );
+    expect(result.settings.lineQrImage).toBe(
+      "/images/portfolio/line-qr.jpg",
+    );
+    expect(result.settings.lineLabel).toEqual({
+      en: "Add me on LINE",
+      th: "เพิ่มเพื่อนทาง LINE",
+    });
+  });
 });

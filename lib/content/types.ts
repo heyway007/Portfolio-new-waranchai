@@ -53,6 +53,10 @@ export interface SiteSettings {
   contactClosing: LocalizedText;
   email: string;
   phone: string;
+  lineUrl: string;
+  lineLabel: LocalizedText;
+  lineQrImage: string;
+  lineQrAlt: LocalizedText;
   location: LocalizedText;
   portrait: string;
   portraitAlt: LocalizedText;

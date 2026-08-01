@@ -226,6 +226,10 @@ export function validateSettings(value: unknown): ValidationResult<SiteSettings>
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     errors.email = "A valid email is required.";
   }
+  const lineUrl = stringValue(object.lineUrl, "lineUrl", errors, true, 1_000);
+  if (lineUrl && !validHttpUrl(lineUrl)) {
+    errors.lineUrl = "Use a valid HTTP or HTTPS URL.";
+  }
 
   const settings: SiteSettings = {
     fullName: stringValue(object.fullName, "fullName", errors, true, 160),
@@ -264,6 +268,27 @@ export function validateSettings(value: unknown): ValidationResult<SiteSettings>
     ),
     email,
     phone: stringValue(object.phone, "phone", errors, true, 60),
+    lineUrl,
+    lineLabel: localizedValue(
+      object.lineLabel,
+      "lineLabel",
+      errors,
+      true,
+      180,
+    ),
+    lineQrImage: imageReference(
+      object.lineQrImage,
+      "lineQrImage",
+      errors,
+      true,
+    ),
+    lineQrAlt: localizedValue(
+      object.lineQrAlt,
+      "lineQrAlt",
+      errors,
+      true,
+      240,
+    ),
     location: localizedValue(object.location, "location", errors, true, 180),
     portrait: imageReference(object.portrait, "portrait", errors, true),
     portraitAlt: localizedValue(

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { defaultPortfolio } from "../lib/content/default-portfolio";
 import { localize } from "../lib/content/i18n";
-import { validateEntry } from "../lib/content/validation";
+import { validateEntry, validateSettings } from "../lib/content/validation";
 import type { ProjectEntry } from "../lib/content/types";
 
 const project: ProjectEntry = {
@@ -28,6 +29,30 @@ describe("localize", () => {
 
   it("falls back to the other translation", () => {
     expect(localize({ en: "Work", th: "" }, "th")).toBe("Work");
+  });
+});
+
+describe("settings validation", () => {
+  it("accepts the complete default LINE contact settings", () => {
+    const result = validateSettings(defaultPortfolio.settings);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.lineUrl).toBe(
+        "https://line.me/ti/p/gxajAHMh2V",
+      );
+      expect(result.value.lineQrImage).toBe(
+        "/images/portfolio/line-qr.jpg",
+      );
+    }
+  });
+
+  it("rejects an unsafe LINE contact URL", () => {
+    const result = validateSettings({
+      ...defaultPortfolio.settings,
+      lineUrl: "javascript:alert(1)",
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.errors.lineUrl).toBeDefined();
   });
 });
 

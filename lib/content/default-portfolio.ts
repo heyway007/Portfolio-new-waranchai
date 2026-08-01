@@ -429,6 +429,13 @@ export const defaultPortfolio: PortfolioData = {
     },
     email: "waranchai_new@hotmail.com",
     phone: "062-425-9965",
+    lineUrl: "https://line.me/ti/p/gxajAHMh2V",
+    lineLabel: { en: "Add me on LINE", th: "เพิ่มเพื่อนทาง LINE" },
+    lineQrImage: "/images/portfolio/line-qr.jpg",
+    lineQrAlt: {
+      en: "LINE QR code for Waranchai",
+      th: "คิวอาร์โค้ด LINE สำหรับติดต่อวรัญชัย",
+    },
     location: { en: "Bangkok, Thailand", th: "กรุงเทพฯ ประเทศไทย" },
     portrait: "/images/portfolio/portrait.webp",
     portraitAlt: { en: "Portrait of Waranchai", th: "ภาพ Waranchai" },
