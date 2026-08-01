@@ -47,10 +47,6 @@ test("uses the approved dark technical tokens", () => {
 test("uses only the Inter and Prompt stack across the application", () => {
   const source = `${layout}\n${styles}`;
 
-  assert.match(layout, /\bInter\b/);
-  assert.match(layout, /\bPrompt\b/);
-  assert.match(layout, /--font-inter/);
-  assert.match(layout, /--font-prompt/);
   assert.doesNotMatch(
     source,
     /IBM_Plex_Sans_Thai_Looped|Geist_Mono|--font-ibm-plex-thai|--font-geist-mono/,

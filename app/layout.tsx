@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Inter, Prompt } from "next/font/google";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/inter/latin-700.css";
+import "@fontsource/prompt/latin-400.css";
+import "@fontsource/prompt/latin-500.css";
+import "@fontsource/prompt/latin-600.css";
+import "@fontsource/prompt/latin-700.css";
+import "@fontsource/prompt/thai-400.css";
+import "@fontsource/prompt/thai-500.css";
+import "@fontsource/prompt/thai-600.css";
+import "@fontsource/prompt/thai-700.css";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const prompt = Prompt({
-  variable: "--font-prompt",
-  subsets: ["latin", "thai"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -57,9 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${prompt.variable}`}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

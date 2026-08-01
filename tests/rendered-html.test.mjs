@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { DatabaseSync } from "node:sqlite";
 import { defaultPortfolio } from "../lib/content/default-portfolio.ts";
 
@@ -116,13 +116,36 @@ test("renders Waranchai's portfolio identity and public sections", async () => {
   assert.match(html, /id="contact"/i);
 });
 
-test("renders deployable self-hosted font URLs", async () => {
+test("emits self-hosted Thai fonts without filesystem URLs", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
 
   const html = await response.text();
-  assert.match(html, /url\(\/assets\/_vinext_fonts\//i);
   assert.doesNotMatch(html, /(?:[A-Z]:)?[^"'()]*\.vinext\/fonts/i);
+  assert.doesNotMatch(html, /data-vinext-fonts/i);
+
+  const assetDirectory = new URL("../dist/client/assets/", import.meta.url);
+  const assetNames = await readdir(assetDirectory);
+  const css = (
+    await Promise.all(
+      assetNames
+        .filter((name) => name.endsWith(".css"))
+        .map((name) => readFile(new URL(name, assetDirectory), "utf8")),
+    )
+  ).join("\n");
+
+  assert.match(css, /font-family:\s*["']?Prompt["']?/i);
+  assert.doesNotMatch(css, /(?:[A-Z]:)?[^"'()]*\.vinext\/fonts/i);
+  for (const weight of [400, 500, 600, 700]) {
+    assert.ok(
+      assetNames.some(
+        (name) =>
+          name.includes(`prompt-thai-${weight}-normal`) &&
+          name.endsWith(".woff2"),
+      ),
+      `missing bundled Prompt Thai ${weight} font`,
+    );
+  }
 });
 
 test("renders host-aware social metadata from the root layout", async () => {

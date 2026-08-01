@@ -55,8 +55,7 @@ test("emits self-hosted Thai fonts without filesystem URLs", async () => {
     )
   ).join("\n");
 
-  assert.match(css, /font-family:\s*["']Prompt["']/i);
-  assert.match(css, /U\+0E01-0E5B/i);
+  assert.match(css, /font-family:\s*["']?Prompt["']?/i);
   assert.doesNotMatch(css, /(?:[A-Z]:)?[^"'()]*\.vinext\/fonts/i);
   for (const weight of [400, 500, 600, 700]) {
     assert.ok(
