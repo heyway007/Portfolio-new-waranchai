@@ -1,8 +1,10 @@
+import Image from "next/image";
 import type {
   Language,
   SkillGroupEntry,
 } from "../../../lib/content/types";
 import { localize } from "../../../lib/content/i18n";
+import { getSkillIcon } from "../../../lib/content/skill-icons";
 
 export function SkillGroups({
   groups,
@@ -26,9 +28,21 @@ export function SkillGroups({
           <article className="skill-card" key={group.id} data-reveal>
             <p className="skill-index">{String(index + 1).padStart(2, "0")}</p>
             <h3>{localize(group.name, language)}</h3>
-            <ul>
+            <ul className="skill-items">
               {group.skills.map((skill) => (
-                <li key={skill}>{skill}</li>
+                <li className="skill-item" key={skill}>
+                  <span className="skill-icon-frame" aria-hidden="true">
+                    <Image
+                      className="skill-icon"
+                      src={getSkillIcon(skill)}
+                      alt=""
+                      width={48}
+                      height={48}
+                      unoptimized
+                    />
+                  </span>
+                  <span className="skill-name">{skill}</span>
+                </li>
               ))}
             </ul>
           </article>

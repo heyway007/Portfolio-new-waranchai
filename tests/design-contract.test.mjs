@@ -103,8 +103,6 @@ test("removes every public interaction transform for reduced motion", () => {
     ".portfolio-site .project-card:focus-within .project-media img",
     ".portfolio-site .project-link:hover::after",
     ".portfolio-site .project-link:focus-visible::after",
-    ".portfolio-site .skill-card:hover .skill-index",
-    ".portfolio-site .skill-card:focus-within .skill-index",
     ".portfolio-site .contact-details a:hover::after",
     ".portfolio-site .contact-details a:focus-visible::after",
     ".portfolio-site .footer-bottom a:hover::after",
@@ -211,5 +209,24 @@ test("staggers all ten current dynamic project cards", () => {
     ".reveal-ready .portfolio-site [data-reveal]:nth-child(10)",
     "transition-delay",
     "calc(9 * 65ms)",
+  );
+});
+
+test("lays out grouped skill logos responsively without motion transforms", () => {
+  assert.match(
+    styles,
+    /\.portfolio-site \.skill-card\s*{[^}]*grid-template-columns:[^;}]+/s,
+  );
+  assert.match(
+    styles,
+    /\.portfolio-site \.skill-items\s*{[^}]*display:\s*grid[^}]*repeat\(auto-fit,/s,
+  );
+  assert.match(
+    styles,
+    /\.portfolio-site \.skill-item\s*{[^}]*flex-direction:\s*column/s,
+  );
+  assert.doesNotMatch(
+    styles,
+    /\.portfolio-site \.skill-item:(?:hover|focus-visible)[^{]*{[^}]*transform:/s,
   );
 });

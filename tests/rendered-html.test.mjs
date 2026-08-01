@@ -173,6 +173,18 @@ test("renders the dark technical section structure without fake controls", async
   assert.doesNotMatch(html, /<form[^>]*class="contact/i);
 });
 
+test("renders every skill as a local icon with its name below", async () => {
+  const response = await render("/");
+  const html = await response.text();
+  const skillItems = html.match(/class="skill-item"/g) ?? [];
+
+  assert.equal(skillItems.length, 22);
+  assert.match(html, /src="\/icons\/skills\/php\.svg"/i);
+  assert.match(html, /src="\/icons\/skills\/google-search-console\.svg"/i);
+  assert.match(html, /class="skill-name"[^>]*>PHP</i);
+  assert.match(html, /class="skill-name"[^>]*>Search Console</i);
+});
+
 test("server HTML and public JSON exclude draft projects from D1", async () => {
   const DB = portfolioDbWithDraft("project-warehouse");
   const htmlResponse = await render("/", { DB });

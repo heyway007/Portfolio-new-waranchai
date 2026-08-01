@@ -1030,65 +1030,93 @@ img {
 .portfolio-site .skills-grid {
   margin-top: clamp(3.5rem, 6vw, 5.5rem);
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   border-top: 1px solid var(--public-line);
-  border-left: 1px solid var(--public-line);
 }
 
 .portfolio-site .skill-card {
   min-width: 0;
-  padding: 1.35rem;
-  border-right: 1px solid var(--public-line);
+  display: grid;
+  grid-template-columns: 3rem minmax(10rem, 0.3fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 2rem);
+  align-items: start;
+  padding: clamp(1.25rem, 2.5vw, 2rem) 0;
   border-bottom: 1px solid var(--public-line);
-  background: transparent;
-  transition:
-    background 200ms ease,
-    border-color 200ms ease;
 }
 
 .portfolio-site .skill-card:hover,
 .portfolio-site .skill-card:focus-within {
   border-color: rgb(255 138 0 / 40%);
-  background: rgb(255 138 0 / 5%);
 }
 
 .portfolio-site .skill-index {
-  margin: 0 0 2.75rem;
+  margin: 0;
+  padding-top: 0.35rem;
   color: var(--accent);
   font: 700 0.68rem/1 "Inter", "Prompt", sans-serif;
-  transition: transform 200ms ease;
-}
-
-.portfolio-site .skill-card:hover .skill-index,
-.portfolio-site .skill-card:focus-within .skill-index {
-  transform: translateX(0.35rem);
 }
 
 .portfolio-site .skill-card h3 {
-  min-height: 3rem;
+  min-height: 0;
   margin: 0;
+  padding-top: 0.15rem;
   overflow-wrap: anywhere;
   font-size: 1.12rem;
   font-weight: 650;
   letter-spacing: -0.025em;
 }
 
-.portfolio-site .skill-card ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.38rem;
-  margin: 1rem 0 0;
+.portfolio-site .skill-items {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5.75rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.portfolio-site .skill-card li {
-  max-width: 100%;
-  padding: 0.32rem 0.55rem;
+.portfolio-site .skill-item {
+  min-width: 0;
+  min-height: 7.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+  padding: 0.9rem 0.55rem;
   border: 1px solid var(--public-line);
-  border-radius: 999px;
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 1.5%);
+  text-align: center;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.portfolio-site .skill-item:hover,
+.portfolio-site .skill-item:focus-within {
+  border-color: rgb(255 138 0 / 48%);
+  background: rgb(255 138 0 / 5%);
+}
+
+.portfolio-site .skill-icon-frame {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+}
+
+.portfolio-site .skill-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.portfolio-site .skill-name {
+  max-width: 100%;
   color: var(--text-secondary);
-  font: 550 0.66rem/1.3 "Inter", "Prompt", sans-serif;
+  font: 600 0.7rem/1.35 "Inter", "Prompt", sans-serif;
   overflow-wrap: anywhere;
 }
 
@@ -1237,8 +1265,13 @@ img {
     position: static;
   }
 
-  .portfolio-site .skills-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .portfolio-site .skill-card {
+    grid-template-columns: 2.5rem minmax(8rem, 0.28fr) minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .portfolio-site .skill-items {
+    grid-template-columns: repeat(auto-fit, minmax(5.4rem, 1fr));
   }
 
   .portfolio-site .contact-layout {
@@ -1413,20 +1446,30 @@ img {
     padding: 1rem 0.5rem;
   }
 
-  .portfolio-site .skills-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .portfolio-site .skill-card {
-    padding: 1.2rem;
-  }
-
-  .portfolio-site .skill-index {
-    margin-bottom: 1.5rem;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1.25rem 0;
   }
 
   .portfolio-site .skill-card h3 {
-    min-height: 0;
+    padding-top: 0;
+  }
+
+  .portfolio-site .skill-items {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .portfolio-site .skill-item {
+    min-height: 6.8rem;
+    padding: 0.8rem 0.45rem;
+  }
+
+  .portfolio-site .skill-icon-frame {
+    width: 2.625rem;
+    height: 2.625rem;
   }
 
   .portfolio-site .contact-message h2 {
@@ -1479,8 +1522,6 @@ img {
   .portfolio-site .button-quiet:focus-visible,
   .portfolio-site .project-link:hover::after,
   .portfolio-site .project-link:focus-visible::after,
-  .portfolio-site .skill-card:hover .skill-index,
-  .portfolio-site .skill-card:focus-within .skill-index,
   .portfolio-site .contact-details a:hover::after,
   .portfolio-site .contact-details a:focus-visible::after,
   .portfolio-site .footer-bottom a:hover::after,
